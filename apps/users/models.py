@@ -3,13 +3,17 @@ from datetime import datetime
 
 from django.db import models
 from django.contrib.auth.models import AbstractUser
+
+
 # Create your models here.
 class UserProfile(AbstractUser):
     nick_name = models.CharField(max_length=50, verbose_name=u"昵称", default="")
-    management_work = models.CharField(max_length=50, verbose_name=u"分管工作", default="")
-    gender = models.CharField(max_length=6, choices=(("male",u"男"),("female","女")), default="female")
+    job = models.CharField(max_length=50, verbose_name=u"职务",
+                           choices=(("1", u"工班长"), ("2", "安全员"), ("3", u"物资员"), ("4", u"综合管理员"), ("5", u"宣传员")),
+                           default="", null=True, blank=True)
+    gender = models.CharField(max_length=6, choices=(("male", u"男"), ("female", "女")), default="female")
     mobile = models.CharField(max_length=11, null=True, blank=True)
-    image = models.ImageField(upload_to="image/%Y/%m",default=u"image/default.png", max_length=100)
+    image = models.ImageField(upload_to="image/%Y/%m", default=u"image/default.png", max_length=100)
 
     class Meta:
         verbose_name = "用户信息"
