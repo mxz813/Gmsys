@@ -9,15 +9,61 @@
 <!-- 写入 base.html 中定义的 content -->
 {% block content %}
     <div class="container">
-      <!-- Main component for a primary marketing message or call to action -->
-      <div class="jumbotron">
-        <h1>公告：</h1>
-        <p>This example is a quick exercise to illustrate how the default, static and fixed to top navbar work. It includes the responsive CSS and HTML, so it also adapts to your viewport and device.</p>
-        <p>To see the difference between static and fixed top navbars, just scroll.</p>
-        <p>
-          <a class="btn btn-lg btn-primary" href="../../components/#navbar" role="button">View navbar docs &raquo;</a>
-        </p>
-      </div>
+        <!-- Main component for a primary marketing message or call to action -->
+
+        <div class="row well">
+            <div class="input-group input-group-lg">
+                <input type="text" class="form-control">
+                <span class="input-group-btn">
+                  <button class="btn btn-default" type="button">＋</button>
+            </span>
+            </div>
+
+
+            <!-- Button trigger modal -->
+
+            <h1 class="col-md-6 text-center"><b>待处理</b></h1>
+            <h1 class="col-md-6 text-center"><b>已完成</b></h1>
+            <div class="alert alert-info col-md-6">成功！很好地完成了提交。
+                <!-- Button trigger modal -->
+                <button type="button" class="btn btn-default btn-sm pull-right glyphicon glyphicon-trash"
+                ></button>
+                <button type="button" class="btn btn-default btn-sm pull-right glyphicon glyphicon-edit"
+                        data-toggle="modal" data-target="#myModal"></button>
+
+            </div>
+
+            <div class="alert alert-info col-md-6">信息！请注意这个信息。
+                <!-- Button trigger modal -->
+                <button type="button" class="btn btn-default btn-sm pull-right glyphicon glyphicon-trash"
+                ></button>
+                <button type="button" class="btn btn-default btn-sm pull-right glyphicon glyphicon-edit"
+                        data-toggle="modal" data-target="#myModal"></button>
+
+            </div>
+        </div>
+
+
+        <!-- Modal -->
+        <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                                aria-hidden="true">&times;</span></button>
+                        <h4 class="modal-title" id="myModalLabel">Modal title</h4>
+                    </div>
+                    <div class="modal-body">
+                        ...
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-primary">Save changes</button>
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
 
     </div> <!-- /container -->
 {% endblock content %}
