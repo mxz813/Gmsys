@@ -16,11 +16,18 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 from django.views.generic import TemplateView
-from users.views import LoginView
+from users.views import LoginView,LogoutView
+from todolists.views import TodolistView,DeltodoView,DonetodoView,RetodoView
 import xadmin
 
 urlpatterns = [
     path('xadmin/', xadmin.site.urls),
     path('', TemplateView.as_view(template_name= "index.html"),name = "index"),
     path('login/', LoginView.as_view(),name = "login"),
+    path('logout/', LogoutView.as_view(),name = "logout"),
+    path('todolist/', TodolistView.as_view(),name = "todolist"),
+    path('deltodo/',DeltodoView.as_view() ,name = "deltodo"),
+    path('donetodo/',DonetodoView.as_view() ,name = "donetodo"),
+    path('retodo/',RetodoView.as_view() ,name = "retodo"),
+
 ]

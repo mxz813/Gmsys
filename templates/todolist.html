@@ -9,15 +9,96 @@
 <!-- 写入 base.html 中定义的 content -->
 {% block content %}
     <div class="container">
-
         <!-- Main component for a primary marketing message or call to action -->
+
         <div class="row">
-            <div class="col-md-6">.col-md-6</div>
-            <div class="col-md-6">.col-md-6</div>
+
+            <form action="/todolist/" method="post" id="addtodo_form" name="addtodo_form" class="form-inline">
+                <div class="well">
+                    <div class="form-group">
+                        <label class="sr-only" for="add_todo">add todo</label>
+                        <input type="text" class="form-control input-lg " id="add_todo" name="add_todo">
+                    </div>
+                    <div class="form-group">
+                        <label class="sr-only" for="nember_name">nember name</label>
+                        <select class="form-control input-lg" id="nember_name">
+                            {% for all_username in all_usernames %}
+                            <option>{{ all_username.nick_name }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label class="sr-only" for="priority">priority</label>
+                        <select class="form-control input-lg" id="priority">
+                            <option>重要</option>
+                            <option>一般</option>
+                            <option>日常</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <button class="btn btn-default input-lg" type="submit">＋</button>
+                    </div>
+                </div>
+
+                {% csrf_token %}
+            </form>
+
+            <!-- Button trigger modal -->
+            <div class="well col-md-6">
+                {% for todo in all_todo %}
+                    {% ifequal todo.is_done 0 %}
+                        <div class="panel panel-info"><!-- Button trigger modal -->
+                            <span><a href="/deltodo/?id={{ todo.id }}"> <button type="button"
+                                                                                class="btn btn-default btn-sm pull-right glyphicon glyphicon-remove"
+                            ></button></a></span>
+                            <span><a href="/donetodo/?id={{ todo.id }}"><button type="button"
+                                                                                class="btn btn-default btn-sm pull-right glyphicon glyphicon-ok"
+                            ></button></a></span>
+                            <span><button type="button"
+                                          class="btn btn-default btn-sm pull-right glyphicon glyphicon-edit"
+                                          data-toggle="modal" data-target="#myModal"
+                                          onclick="values({{ todo.id }})"></button></span>
+                            <div class="panel-heading">
+                                <h3 class="panel-title">{{ todo.user_name.nick_name }}发布于{{ todo.done_time }}</h3>
+                            </div>
+                            <div class="panel-body" id="{{ todo.id }}-panel-body">
+                                {{ todo.contents }}
+                            </div>
+                            <div class="panel-footer">组员：{{ todo.user_name.nick_name }}</div>
+                        </div>
+                    {% endifequal %}
+                {% endfor %}
+            </div>
+            <!-- Button trigger modal -->
+            <div class="well col-md-6">
+                {% for todo in all_todo %}
+                    {% ifequal todo.is_done 1 %}
+                        <div class="panel panel-info"><!-- Button trigger modal -->
+                            <span><a href="/deltodo/?id={{ todo.id }}"> <button type="button"
+                                                                                class="btn btn-default btn-sm pull-right glyphicon glyphicon-remove"
+                            ></button></a></span>
+                            <span><a href="/retodo/?id={{ todo.id }}"><button type="button"
+                                                                              class="btn btn-default btn-sm pull-right glyphicon glyphicon-repeat"
+                            ></button></a></span>
+                            <div class="panel-heading">
+                                <h3 class="panel-title">{{ todo.user_name.nick_name }}完成于{{ todo.done_time }}</h3>
+                            </div>
+                            <div class="panel-body" id="panel-body">
+                                {{ todo.contents }}
+                            </div>
+                            <div class="panel-footer">组员：{{ todo.user_name.nick_name }}</div>
+                        </div>
+                    {% endifequal %}
+                {% endfor %}
+            </div>
+
+
         </div>
+        <!-- container end -->
+    </div>
 
-    </div> <!-- /container -->
+    {% include "modal.html" %}
 {% endblock content %}
-
 
 
