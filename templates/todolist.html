@@ -3,7 +3,7 @@
 
 <!-- 写入 base.html 中定义的 title -->
 {% block title %}
-    首页
+    Todolist-ATS工班
 {% endblock title %}
 
 <!-- 写入 base.html 中定义的 content -->
@@ -17,27 +17,40 @@
                 <div class="well">
                     <div class="form-group">
                         <label class="sr-only" for="add_todo">add todo</label>
-                        <input type="text" class="form-control input-lg " id="add_todo" name="add_todo">
+                        <textarea class="form-control" id="add_todo" name="add_todo" placeholder="添加事项" rows="5" cols="155"></textarea>
                     </div>
                     <div class="form-group">
-                        <label class="sr-only" for="nember_name">nember name</label>
-                        <select class="form-control input-lg" id="nember_name">
-                            {% for all_username in all_usernames %}
-                            <option>{{ all_username.nick_name }}</option>
-                            {% endfor %}
+                        <label class="sr-only" for="nember_name">job</label>
+                        <select class="selectpicker" title="请选择工作类型" id="work_type" name="work_type">
+
+                            <option value="0">日常工作</option>
+                            <option value="1">安全管理</option>
+                            <option value="2">生产管理</option>
+                            <option value="3">质量管理</option>
+                            <option value="4">综合管理</option>
+                            <option value="5">物资管理</option>
+                            <option value="6">宣传工作</option>
+
                         </select>
                     </div>
                     <div class="form-group">
                         <label class="sr-only" for="priority">priority</label>
-                        <select class="form-control input-lg" id="priority">
-                            <option>重要</option>
-                            <option>一般</option>
-                            <option>日常</option>
+                        <select class="selectpicker" title="请选择优先级" id="priority" name="priority">
+                            <option value="1">重要</option>
+                            <option value="2">一般</option>
+                            <option value="3">日常</option>
                         </select>
                     </div>
-
                     <div class="form-group">
-                        <button class="btn btn-default input-lg" type="submit">＋</button>
+                        <label class="sr-only" for="nember_name">member name</label>
+                        <select class="selectpicker" id="member_name" name="member_name" multiple title="请选择组员">
+                            {% for all_username in all_usernames %}
+                                <option value="{{ all_username.nick_name }}">{{ all_username.nick_name }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                    <div class="form-group pull-right">
+                        <button class="btn btn-default" type="submit">＋</button>
                     </div>
                 </div>
 
@@ -46,9 +59,18 @@
 
             <!-- Button trigger modal -->
             <div class="well col-md-6">
+                <div class="panel panel-default">
+                    <div class="panel-body text-center">
+                        <b>ToDo</b>
+                    </div>
+                </div>
                 {% for todo in all_todo %}
                     {% ifequal todo.is_done 0 %}
-                        <div class="panel panel-info"><!-- Button trigger modal -->
+                        <div class="panel
+                            {% ifequal todo.priority 1 %}panel-danger{% endifequal %}
+                            {% ifequal todo.priority 2 %}panel-info{% endifequal %}
+                            {% ifequal todo.priority 3 %}panel-success{% endifequal %}">
+                            <!-- Button trigger modal -->
                             <span><a href="/deltodo/?id={{ todo.id }}"> <button type="button"
                                                                                 class="btn btn-default btn-sm pull-right glyphicon glyphicon-remove"
                             ></button></a></span>
@@ -57,24 +79,42 @@
                             ></button></a></span>
                             <span><button type="button"
                                           class="btn btn-default btn-sm pull-right glyphicon glyphicon-edit"
-                                          data-toggle="modal" data-target="#myModal"
+                                          data-toggle="modal" data-target="#myModal.bs-example-modal-lg"
                                           onclick="values({{ todo.id }})"></button></span>
                             <div class="panel-heading">
-                                <h3 class="panel-title">{{ todo.user_name.nick_name }}发布于{{ todo.done_time }}</h3>
+                                <h3 class="panel-title">
+                                    {% ifequal todo.work_type "0" %}日常工作{% endifequal %}
+                                    {% ifequal todo.work_type "1" %}安全管理{% endifequal %}
+                                    {% ifequal todo.work_type "2" %}生产管理{% endifequal %}
+                                    {% ifequal todo.work_type "3" %}质量管理{% endifequal %}
+                                    {% ifequal todo.work_type "4" %}综合管理{% endifequal %}
+                                    {% ifequal todo.work_type "5" %}物资管理{% endifequal %}
+                                    {% ifequal todo.work_type "6" %}宣传工作{% endifequal %}</h3>
                             </div>
                             <div class="panel-body" id="{{ todo.id }}-panel-body">
                                 {{ todo.contents }}
                             </div>
-                            <div class="panel-footer">组员：{{ todo.user_name.nick_name }}</div>
+                            <div class="panel-footer">组员：{{ todo.member_name }}</div>
                         </div>
                     {% endifequal %}
                 {% endfor %}
             </div>
             <!-- Button trigger modal -->
             <div class="well col-md-6">
+             <div class="panel panel-default">
+                    <div class="panel-body text-center">
+                       <b>Done</b>
+                    </div>
+                </div>
+
                 {% for todo in all_todo %}
                     {% ifequal todo.is_done 1 %}
-                        <div class="panel panel-info"><!-- Button trigger modal -->
+                        <div class="panel
+                            {% ifequal todo.priority 1 %}panel-danger{% endifequal %}
+                            {% ifequal todo.priority 2 %}panel-info{% endifequal %}
+                            {% ifequal todo.priority 3 %}panel-success{% endifequal %}">
+
+                            <!-- Button trigger modal -->
                             <span><a href="/deltodo/?id={{ todo.id }}"> <button type="button"
                                                                                 class="btn btn-default btn-sm pull-right glyphicon glyphicon-remove"
                             ></button></a></span>
@@ -82,12 +122,20 @@
                                                                               class="btn btn-default btn-sm pull-right glyphicon glyphicon-repeat"
                             ></button></a></span>
                             <div class="panel-heading">
-                                <h3 class="panel-title">{{ todo.user_name.nick_name }}完成于{{ todo.done_time }}</h3>
+                                <h3 class="panel-title">
+                                    {% ifequal todo.work_type "0" %}日常工作{% endifequal %}
+                                    {% ifequal todo.work_type "1" %}安全管理{% endifequal %}
+                                    {% ifequal todo.work_type "2" %}生产管理{% endifequal %}
+                                    {% ifequal todo.work_type "3" %}质量管理{% endifequal %}
+                                    {% ifequal todo.work_type "4" %}综合管理{% endifequal %}
+                                    {% ifequal todo.work_type "5" %}物资管理{% endifequal %}
+                                    {% ifequal todo.work_type "6" %}宣传工作{% endifequal %}
+                                </h3>
                             </div>
                             <div class="panel-body" id="panel-body">
                                 {{ todo.contents }}
                             </div>
-                            <div class="panel-footer">组员：{{ todo.user_name.nick_name }}</div>
+                            <div class="panel-footer">组员：{{ todo.member_name }}</div>
                         </div>
                     {% endifequal %}
                 {% endfor %}
