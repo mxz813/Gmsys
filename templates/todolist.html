@@ -43,7 +43,7 @@
                     </div>
                     <div class="form-group">
                         <label class="sr-only" for="nember_name">member name</label>
-                        <select class="selectpicker" id="member_name" name="member_name" multiple title="请选择组员">
+                        <select class="selectpicker" id="member_name" name="member_name" multiple title="请选择执行人" data-actions-box="true">
                             {% for all_username in all_usernames %}
                                 <option value="{{ all_username.nick_name }}">{{ all_username.nick_name }}</option>
                             {% endfor %}
@@ -97,7 +97,7 @@
                             <div class="panel-body" id="{{ todo.id }}-panel-body">
                                 {{ todo.contents }}
                             </div>
-                            <div class="panel-footer">组员：{{ todo.member_name }}</div>
+                            <div class="panel-footer" id="{{ todo.id }}-member-name">执行人：{{ todo.member_name }}</div>
                         </div>
                     {% endifequal %}
                 {% endfor %}
@@ -138,7 +138,7 @@
                             <div class="panel-body" id="panel-body">
                                 {{ todo.contents }}
                             </div>
-                            <div class="panel-footer">组员：{{ todo.member_name }}</div>
+                            <div class="panel-footer">执行人：{{ todo.member_name }}</div>
                         </div>
                     {% endifequal %}
                 {% endfor %}

@@ -37,7 +37,7 @@
 
 
                         <label class="sr-only" for="nember_name">member name</label>
-                        <select class="selectpicker" id="member_name_modal" name="member_name_modal" multiple title="请选择组员">
+                        <select class="selectpicker" id="member_name_modal" name="member_name_modal" multiple title="请选择执行人" data-actions-box="true">
                             {% for all_username in all_usernames %}
                                 <option value="{{ all_username.nick_name }}">{{ all_username.nick_name }}</option>
                             {% endfor %}
@@ -66,13 +66,17 @@ function values(ID) {
     var div_body = document.getElementById(ID+"-panel-body").innerHTML;
     var lab_priority = document.getElementById(ID+"-panel-priority").innerHTML;
     var lab_worktype = document.getElementById(ID+"-panel-worktype").innerHTML;
+    var div_membername = document.getElementById(ID+"-member-name").innerHTML;
+    var tt=slice(div_membername)
+    window.alert(tt);
+
     //出去空格
    var str = div_body.replace(/^\s+|\s+$/g,"");
     //向模态框中传值
     $('#todotext').val(str);
     $('#priority_modal').selectpicker('val', lab_priority);
     $('#work_type_modal').selectpicker('val', lab_worktype);
-
+    $('#member_name_modal').selectpicker('val', ['']);
 }
 
 </script>
