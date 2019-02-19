@@ -41,10 +41,10 @@ class TodolistView(View):
             todo.id = request.POST.get("id")
             todo.user_name_id = request.user.id
             todo.contents = request.POST.get("todotext","")
-            todo.priority = request.POST.get("priority")
-            todo.work_type = request.POST.get("work_type")
+            todo.priority = request.POST.get("priority_modal")
+            todo.work_type = request.POST.get("work_type_modal")
             todo.is_done = False
-            todo.member_name = ','.join(request.POST.getlist("member_name"))
+            todo.member_name = ','.join(request.POST.getlist("member_name_modal"))
             todo.save()
             return HttpResponseRedirect('/todolist/')
 

@@ -66,10 +66,12 @@
                 </div>
                 {% for todo in all_todo %}
                     {% ifequal todo.is_done 0 %}
+                        <label class="sr-only" id="{{ todo.id }}-panel-priority">{{ todo.priority }}</label>
                         <div class="panel
                             {% ifequal todo.priority 1 %}panel-danger{% endifequal %}
                             {% ifequal todo.priority 2 %}panel-info{% endifequal %}
-                            {% ifequal todo.priority 3 %}panel-success{% endifequal %}">
+                            {% ifequal todo.priority 3 %}panel-success{% endifequal %}"
+                        id="panel-priority">
                             <!-- Button trigger modal -->
                             <span><a href="/deltodo/?id={{ todo.id }}"> <button type="button"
                                                                                 class="btn btn-default btn-sm pull-right glyphicon glyphicon-remove"
@@ -82,6 +84,7 @@
                                           data-toggle="modal" data-target="#myModal.bs-example-modal-lg"
                                           onclick="values({{ todo.id }})"></button></span>
                             <div class="panel-heading">
+                            <label class="sr-only" id="{{ todo.id }}-panel-worktype">{{ todo.work_type }}</label>
                                 <h3 class="panel-title">
                                     {% ifequal todo.work_type "0" %}日常工作{% endifequal %}
                                     {% ifequal todo.work_type "1" %}安全管理{% endifequal %}

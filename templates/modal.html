@@ -15,7 +15,7 @@
                         <textarea class="form-control" name="todotext" rows="5" id="todotext"></textarea>
 
                         <label class="sr-only" for="nember_name">job</label>
-                        <select class="selectpicker" title="请选择工作类型" id="work_type" name="work_type">
+                        <select class="selectpicker" title="请选择工作类型" id="work_type_modal" name="work_type_modal">
 
                             <option value="0">日常工作</option>
                             <option value="1">安全管理</option>
@@ -29,7 +29,7 @@
 
 
                         <label class="sr-only" for="priority">priority</label>
-                        <select class="selectpicker" title="请选择优先级" id="priority" name="priority">
+                        <select class="selectpicker" title="请选择优先级" id="priority_modal" name="priority_modal">
                             <option value="1">重要</option>
                             <option value="2">一般</option>
                             <option value="3">日常</option>
@@ -37,7 +37,7 @@
 
 
                         <label class="sr-only" for="nember_name">member name</label>
-                        <select class="selectpicker" id="member_name" name="member_name" multiple title="请选择组员">
+                        <select class="selectpicker" id="member_name_modal" name="member_name_modal" multiple title="请选择组员">
                             {% for all_username in all_usernames %}
                                 <option value="{{ all_username.nick_name }}">{{ all_username.nick_name }}</option>
                             {% endfor %}
@@ -55,7 +55,7 @@
     </form>
 {% endblock %}
 {% block script %}
-    <script type="text/javascript">
+<script type="text/javascript">
 
     //触发模态框的同时调用此方法
 
@@ -64,13 +64,17 @@ function values(ID) {
     var ID= ID
     //获取变量
     var div_body = document.getElementById(ID+"-panel-body").innerHTML;
+    var lab_priority = document.getElementById(ID+"-panel-priority").innerHTML;
+    var lab_worktype = document.getElementById(ID+"-panel-worktype").innerHTML;
     //出去空格
    var str = div_body.replace(/^\s+|\s+$/g,"");
     //向模态框中传值
     $('#todotext').val(str);
-    //$('#myModal').modal('show');
+    $('#priority_modal').selectpicker('val', lab_priority);
+    $('#work_type_modal').selectpicker('val', lab_worktype);
+
 }
 
-    </script>
+</script>
 
 {% endblock %}
