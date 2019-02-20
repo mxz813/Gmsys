@@ -17,7 +17,8 @@
                 <div class="well">
                     <div class="form-group">
                         <label class="sr-only" for="add_todo">add todo</label>
-                        <textarea class="form-control" id="add_todo" name="add_todo" placeholder="添加事项" rows="5" cols="155"></textarea>
+                        <textarea class="form-control" id="add_todo" name="add_todo" placeholder="添加事项" rows="5"
+                                  cols="155"></textarea>
                     </div>
                     <div class="form-group">
                         <label class="sr-only" for="nember_name">job</label>
@@ -43,7 +44,8 @@
                     </div>
                     <div class="form-group">
                         <label class="sr-only" for="nember_name">member name</label>
-                        <select class="selectpicker" id="member_name" name="member_name" multiple title="请选择执行人" data-actions-box="true">
+                        <select class="selectpicker" id="member_name" name="member_name" multiple title="请选择执行人"
+                                data-actions-box="true">
                             {% for all_username in all_usernames %}
                                 <option value="{{ all_username.nick_name }}">{{ all_username.nick_name }}</option>
                             {% endfor %}
@@ -71,20 +73,23 @@
                             {% ifequal todo.priority 1 %}panel-danger{% endifequal %}
                             {% ifequal todo.priority 2 %}panel-info{% endifequal %}
                             {% ifequal todo.priority 3 %}panel-success{% endifequal %}"
-                        id="panel-priority">
+                             id="panel-priority">
                             <!-- Button trigger modal -->
-                            <span><a href="/deltodo/?id={{ todo.id }}"> <button type="button"
-                                                                                class="btn btn-default btn-sm pull-right glyphicon glyphicon-remove"
-                            ></button></a></span>
-                            <span><a href="/donetodo/?id={{ todo.id }}"><button type="button"
-                                                                                class="btn btn-default btn-sm pull-right glyphicon glyphicon-ok"
-                            ></button></a></span>
+
+                            <span><button type="button"
+                                          class="btn btn-default btn-sm pull-right glyphicon glyphicon-remove"
+                                          onclick="values({{ todo.id }})" data-toggle="modal"
+                                          data-target="#RemoveModal.bs-example-modal-sm"></button></span>
+
+                            <span><button type="button" class="btn btn-default btn-sm pull-right glyphicon glyphicon-ok"
+                                          onclick="donevalues({{ todo.id }})" data-toggle="modal"
+                                          data-target="#DoneModal.bs-example-modal-sm"></button></span>
                             <span><button type="button"
                                           class="btn btn-default btn-sm pull-right glyphicon glyphicon-edit"
                                           data-toggle="modal" data-target="#myModal.bs-example-modal-lg"
                                           onclick="values({{ todo.id }})"></button></span>
                             <div class="panel-heading">
-                            <label class="sr-only" id="{{ todo.id }}-panel-worktype">{{ todo.work_type }}</label>
+                                <label class="sr-only" id="{{ todo.id }}-panel-worktype">{{ todo.work_type }}</label>
                                 <h3 class="panel-title">
                                     {% ifequal todo.work_type "0" %}日常工作{% endifequal %}
                                     {% ifequal todo.work_type "1" %}安全管理{% endifequal %}
@@ -104,9 +109,9 @@
             </div>
             <!-- Button trigger modal -->
             <div class="well col-md-6">
-             <div class="panel panel-default">
+                <div class="panel panel-default">
                     <div class="panel-body text-center">
-                       <b>Done</b>
+                        <b>Done</b>
                     </div>
                 </div>
 
@@ -118,12 +123,14 @@
                             {% ifequal todo.priority 3 %}panel-success{% endifequal %}">
 
                             <!-- Button trigger modal -->
-                            <span><a href="/deltodo/?id={{ todo.id }}"> <button type="button"
-                                                                                class="btn btn-default btn-sm pull-right glyphicon glyphicon-remove"
-                            ></button></a></span>
-                            <span><a href="/retodo/?id={{ todo.id }}"><button type="button"
-                                                                              class="btn btn-default btn-sm pull-right glyphicon glyphicon-repeat"
-                            ></button></a></span>
+                            <span><button type="button"
+                                          class="btn btn-default btn-sm pull-right glyphicon glyphicon-remove"
+                                          onclick="doneremovevalues({{ todo.id }})" data-toggle="modal"
+                                          data-target="#RemoveModal.bs-example-modal-sm"></button></span>
+                            <span><button type="button"
+                                          class="btn btn-default btn-sm pull-right glyphicon glyphicon-repeat"
+                                          onclick="retodovalues({{ todo.id }})" data-toggle="modal"
+                                          data-target="#RetodoModal.bs-example-modal-sm"></button></span>
                             <div class="panel-heading">
                                 <h3 class="panel-title">
                                     {% ifequal todo.work_type "0" %}日常工作{% endifequal %}
