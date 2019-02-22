@@ -18,6 +18,7 @@ from django.urls import path
 from django.views.generic import TemplateView
 from users.views import LoginView,LogoutView
 from todolists.views import TodolistView,DeltodoView,DonetodoView,RetodoView
+from plans.views import PlansView
 import xadmin
 
 urlpatterns = [
@@ -29,5 +30,7 @@ urlpatterns = [
     path('deltodo/',DeltodoView.as_view() ,name = "deltodo"),
     path('donetodo/',DonetodoView.as_view() ,name = "donetodo"),
     path('retodo/',RetodoView.as_view() ,name = "retodo"),
+    path('plan/',PlansView.as_view() ,name = "plan"),
+
 
 ]

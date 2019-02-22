@@ -14,7 +14,7 @@
                         <input type="hidden" id="id" name="id" value="">
                         <textarea class="form-control" name="todotext" rows="5" id="todotext"></textarea>
 
-                        <label class="sr-only" for="nember_name">job</label>
+                        <label class="sr-only" for="work_type_modal">work_type_modal</label>
                         <select class="selectpicker" title="请选择工作类型" id="work_type_modal" name="work_type_modal">
 
                             <option value="0">日常工作</option>
@@ -28,7 +28,7 @@
                         </select>
 
 
-                        <label class="sr-only" for="priority">priority</label>
+                        <label class="sr-only" for="priority_modal">priority_modal</label>
                         <select class="selectpicker" title="请选择优先级" id="priority_modal" name="priority_modal">
                             <option value="1">重要</option>
                             <option value="2">一般</option>
@@ -36,7 +36,7 @@
                         </select>
 
 
-                        <label class="sr-only" for="nember_name">member name</label>
+                        <label class="sr-only" for="member_name_modal">member_name_modal</label>
                         <select class="selectpicker" id="member_name_modal" name="member_name_modal" multiple
                                 title="请选择执行人" data-actions-box="true">
                             {% for all_username in all_usernames %}

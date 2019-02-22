@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     'todolists',
     'xadmin',
     'crispy_forms',
+    'plans',
 
 
 ]

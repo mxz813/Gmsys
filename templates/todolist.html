@@ -13,48 +13,49 @@
 
         <div class="row">
 
-            <form action="/todolist/" method="post" id="addtodo_form" name="addtodo_form" class="form-inline">
+            <form action="/todolist/" method="post" id="addtodo_form" name="addtodo_form">
                 <div class="well">
                     <div class="form-group">
                         <label class="sr-only" for="add_todo">add todo</label>
                         <textarea class="form-control" id="add_todo" name="add_todo" placeholder="添加事项" rows="5"
-                                  cols="155"></textarea>
+                        ></textarea>
                     </div>
-                    <div class="form-group">
-                        <label class="sr-only" for="nember_name">job</label>
-                        <select class="selectpicker" title="请选择工作类型" id="work_type" name="work_type">
+                    <div class="form-inline">
+                        <div class="form-group">
+                            <label class="sr-only" for="nember_name">job</label>
+                            <select class="selectpicker" title="请选择工作类型" id="work_type" name="work_type">
 
-                            <option value="0">日常工作</option>
-                            <option value="1">安全管理</option>
-                            <option value="2">生产管理</option>
-                            <option value="3">质量管理</option>
-                            <option value="4">综合管理</option>
-                            <option value="5">物资管理</option>
-                            <option value="6">宣传工作</option>
+                                <option value="0">日常工作</option>
+                                <option value="1">安全管理</option>
+                                <option value="2">生产管理</option>
+                                <option value="3">质量管理</option>
+                                <option value="4">综合管理</option>
+                                <option value="5">物资管理</option>
+                                <option value="6">宣传工作</option>
 
-                        </select>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label class="sr-only" for="priority">priority</label>
+                            <select class="selectpicker" title="请选择优先级" id="priority" name="priority">
+                                <option value="1">重要</option>
+                                <option value="2">一般</option>
+                                <option value="3">日常</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label class="sr-only" for="nember_name">member name</label>
+                            <select class="selectpicker" id="member_name" name="member_name" multiple title="请选择执行人"
+                                    data-actions-box="true">
+                                {% for all_username in all_usernames %}
+                                    <option value="{{ all_username.nick_name }}">{{ all_username.nick_name }}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                        <div class="form-group pull-right">
+                            <button class="btn btn-default" type="submit">＋</button>
+                        </div>
                     </div>
-                    <div class="form-group">
-                        <label class="sr-only" for="priority">priority</label>
-                        <select class="selectpicker" title="请选择优先级" id="priority" name="priority">
-                            <option value="1">重要</option>
-                            <option value="2">一般</option>
-                            <option value="3">日常</option>
-                        </select>
-                    </div>
-                    <div class="form-group">
-                        <label class="sr-only" for="nember_name">member name</label>
-                        <select class="selectpicker" id="member_name" name="member_name" multiple title="请选择执行人"
-                                data-actions-box="true">
-                            {% for all_username in all_usernames %}
-                                <option value="{{ all_username.nick_name }}">{{ all_username.nick_name }}</option>
-                            {% endfor %}
-                        </select>
-                    </div>
-                    <div class="form-group pull-right">
-                        <button class="btn btn-default" type="submit">＋</button>
-                    </div>
-
                 </div>
 
                 {% csrf_token %}
@@ -63,7 +64,7 @@
                 <div class="alert alert-danger alert-dismissible" role="alert">
                     <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span
                             aria-hidden="true">&times;</span></button>
-                    <strong>{{ msg }}</strong>
+                    <p class="text-center"><strong>{{ msg }}</strong></p>
                 </div>
             {% endif %}
 
