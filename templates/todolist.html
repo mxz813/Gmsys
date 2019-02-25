@@ -13,7 +13,7 @@
 
         <div class="row">
 
-            <form action="/todolist/" method="post" id="addtodo_form" name="addtodo_form">
+            <form action="{% url 'todolist' %}" method="post" id="addtodo_form" name="addtodo_form">
                 <div class="well">
                     <div class="form-group">
                         <label class="sr-only" for="add_todo">add todo</label>
@@ -60,6 +60,7 @@
 
                 {% csrf_token %}
             </form>
+            <!-- 告警信息!-->
             {% if msg != null %}
                 <div class="alert alert-danger alert-dismissible" role="alert">
                     <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span
@@ -68,6 +69,37 @@
                 </div>
             {% endif %}
 
+            <div class="well">
+                <div>
+                    <button type="button" class="btn btn-default {% ifequal priority '' %}active{% endifequal %}"><a
+                            href="?wt={{ work_type }}"><span>全部</span></a></button>
+                    <button type="button" class="btn btn-default {% ifequal priority '1' %}active{% endifequal %}"><a
+                            href="?pr=1&wt={{ work_type }}"><span>重要</span></a></button>
+                    <button type="button" class="btn btn-default {% ifequal priority '2' %}active{% endifequal %}"><a
+                            href="?pr=2&wt={{ work_type }}"><span>一般</span></a></button>
+                    <button type="button" class="btn btn-default {% ifequal priority '3' %}active{% endifequal %}"><a
+                            href="?pr=3&wt={{ work_type }}"><span>日常</span></a></button>
+                </div>
+                <div>
+                    <button type="button" class="btn btn-default {% ifequal work_type '' %}active{% endifequal %}"><a
+                            href="?pr={{ priority }}"><span>全部</span></a></button>
+                    <button type="button" class="btn btn-default{% ifequal work_type '0' %}active{% endifequal %}"><a
+                            href="?wt=0&pr={{ priority }}"><span>日常工作</span></a></button>
+                    <button type="button" class="btn btn-default{% ifequal work_type '1' %}active{% endifequal %}"><a
+                            href="?wt=1&pr={{ priority }}"><span>安全管理</span></a></button>
+                    <button type="button" class="btn btn-default{% ifequal work_type '2' %}active{% endifequal %}"><a
+                            href="?wt=2&pr={{ priority }}"><span>生产管理</span></a></button>
+                    <button type="button" class="btn btn-default{% ifequal work_type '3' %}active{% endifequal %}"><a
+                            href="?wt=3&pr={{ priority }}"><span>质量管理</span></a></button>
+                    <button type="button" class="btn btn-default{% ifequal work_type '4' %}active{% endifequal %}"><a
+                            href="?wt=4&pr={{ priority }}"><span>综合管理</span></a></button>
+                    <button type="button" class="btn btn-default{% ifequal work_type '5' %}active{% endifequal %}"><a
+                            href="?wt=5&pr={{ priority }}"><span>物资管理</span></a></button>
+                    <button type="button" class="btn btn-default{% ifequal work_type '6' %}active{% endifequal %}"><a
+                            href="?wt=6&pr={{ priority }}"><span>宣传工作</span></a></button>
+                </div>
+            </div>
+
             <!-- Button trigger modal -->
             <div class="well col-md-6">
                 <div class="panel panel-default">
@@ -75,7 +107,7 @@
                         <b>ToDo</b>
                     </div>
                 </div>
-                {% for todo in all_todo %}
+                {% for todo in all_todo.object_list %}
                     {% ifequal todo.is_done 0 %}
                         <label class="sr-only" id="{{ todo.id }}-panel-priority">{{ todo.priority }}</label>
                         <div class="panel
@@ -115,6 +147,7 @@
                         </div>
                     {% endifequal %}
                 {% endfor %}
+
             </div>
             <!-- Button trigger modal -->
             <div class="well col-md-6">
@@ -124,7 +157,7 @@
                     </div>
                 </div>
 
-                {% for todo in all_todo %}
+                {% for todo in all_todo.object_list %}
                     {% ifequal todo.is_done 1 %}
                         <div class="panel
                             {% ifequal todo.priority 1 %}panel-danger{% endifequal %}
@@ -159,12 +192,41 @@
                     {% endifequal %}
                 {% endfor %}
             </div>
-
-
         </div>
         <!-- container end -->
-    </div>
+        <nav aria-label="Page navigation" class="text-center">
+            <ul class="pagination">
+                <li>
+                    {% if all_todo.has_previous %}
+                        <li class="disabled"><a href="?{{ all_todo.previous_page_number.querystring }}"
+                                                aria-label="Previous"><span aria-hidden="true">&laquo;</span></a></li>
+                    {% endif %}
 
+                {% for page in all_todo.pages %}
+                    {% if page %}
+                        {% ifequal page all_todo.number %}
+                            <li class="active"><a href="?{{ page.querystring }}">{{ page }} <span
+                                    class="sr-only">{{ page }}</span></a></li>
+                        {% else %}
+                            <li><a href="?{{ page.querystring }}" class="page">{{ page }}</a></li>
+                        {% endifequal %}
+                    {% else %}
+                        <li><a href="">...</a></li>
+                    {% endif %}
+                {% endfor %}
+                {% if all_todo.has_next %}
+                    <li>
+                        <a href="?{{ all_todo.next_page_number.querystring }}" aria-label="Next">
+                            <span aria-hidden="true">&raquo;</span>
+                        </a>
+                    </li>
+                {% endif %}
+                </li>
+            </ul>
+        </nav>
+
+
+    </div>
     {% include "modal.html" %}
 {% endblock content %}
 

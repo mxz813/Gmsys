@@ -22,7 +22,7 @@ class LoginView(View):
             else:
                 return render(request, "login.html", {"msg": "用户名或密码错误"})
         else:
-            return render(request, "login.html", {"login_form": login_form})
+            return render(request, "login.html", {"msg": "用户名或密码错误","login_form": login_form})
 
 class LogoutView(View):
     """

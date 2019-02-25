@@ -5,7 +5,8 @@ from apps.todolists.models import Todo
 from users.models import UserProfile
 from datetime import datetime
 from django.http import HttpResponseRedirect
-from .forms import TodoForm
+from .forms import TodoForm,TodoModalForm
+from pure_pagination import Paginator, EmptyPage, PageNotAnInteger
 
 
 # Create your views here.
@@ -15,18 +16,63 @@ class TodolistView(View):
         if request.user.is_authenticated:
             all_todo = Todo.objects.all()
             all_usernames = UserProfile.objects.all()
+
+            #优先级筛选
+            priority= request.GET.get('pr',"")
+            if priority:
+                all_todo =all_todo.filter(priority=priority)
+            #取出工作类型
+            work_type = request.GET.get('wt', "")
+            if work_type:
+                all_todo = all_todo.filter(work_type=work_type)
+
+            #删除事项
+            del_id = request.GET.get("delid")
+            if del_id:
+                Todo.objects.filter(id=del_id).delete()
+
+            #完成事项
+            done_id = request.GET.get("doneid")
+            if done_id:
+                Todo.objects.filter(id=done_id).update(is_done=True, done_time=datetime.now())
+
+            #恢复事项
+            redo_id = request.GET.get("redoid")
+            if redo_id:
+                Todo.objects.filter(id=redo_id).update(is_done=False, add_time=datetime.now())
+
+            #对TODOLIST进行分页
+            try:
+                page = request.GET.get('page', 1)
+            except PageNotAnInteger:
+                page = 1
+
+            objects = ['john', 'edward', 'josh', 'frank']
+
+            # Provide Paginator with the request object for complete querystring generation
+
+            p = Paginator(all_todo, 20,request=request)
+
+            todos = p.page(page)
+
             return render(request, "todolist.html", {
-                "all_todo": all_todo,
+                "all_todo": todos,
                 "all_usernames": all_usernames,
+                "priority": priority,
+                "work_type": work_type,
+
             })
         else:
             return render(request, "login.html", {})
+
 
     def post(self, request):
         all_todo = Todo.objects.all()
         all_usernames = UserProfile.objects.all()
         add_todo_form = TodoForm(request.POST)
-        if add_todo_form.is_valid():
+        add_todomodal_form = TodoModalForm(request.POST)
+
+        if add_todo_form.is_valid() or add_todomodal_form.is_valid():
             # add_todotext = request.POST.get("todotext","")
             add_todo = request.POST.get("add_todo")
 
@@ -58,24 +104,3 @@ class TodolistView(View):
                 "all_todo": all_todo,
                 "all_usernames": all_usernames,
             })
-
-
-class DeltodoView(View):
-    def get(self, request):
-        trans_id = request.GET.get("id")
-        Todo.objects.filter(id=trans_id).delete()
-        return HttpResponseRedirect('/todolist/')
-
-
-class DonetodoView(View):
-    def get(self, request):
-        trans_id = request.GET.get("id")
-        querytodo = Todo.objects.filter(id=trans_id).update(is_done=True, done_time=datetime.now())
-        return HttpResponseRedirect('/todolist/')
-
-
-class RetodoView(View):
-    def get(self, request):
-        trans_id = request.GET.get("id")
-        querytodo = Todo.objects.filter(id=trans_id).update(is_done=False, add_time=datetime.now())
-        return HttpResponseRedirect('/todolist/')

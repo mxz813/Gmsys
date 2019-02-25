@@ -1,7 +1,7 @@
 {% block modal %}
     <!-- Modal -->
     <form action="/todolist/" method="post" id="addtodo_form" name="addtodo_form">
-        <div class="modal fade bs-example-modal-lg" id="myModal" tabindex="-1" role="dialog"
+        <div class="modal bs-example-modal-lg" id="myModal" tabindex="-1" role="dialog"
              aria-labelledby="myModalLabel">
             <div class="modal-dialog modal-lg" role="document">
                 <div class="modal-content">
@@ -59,7 +59,7 @@
 
     <!-- Small modal -->
 
-    <div class="modal fade bs-example-modal-sm" id="RemoveModal" tabindex="-1" role="dialog"
+    <div class="modal bs-example-modal-sm" id="RemoveModal" tabindex="-1" role="dialog"
          aria-labelledby="mySmallModalLabel">
         <div class="modal-dialog modal-sm" role="document">
             <div class="modal-content">
@@ -86,7 +86,7 @@
 
     <!-- Small modal -->
 
-    <div class="modal fade bs-example-modal-sm" id="DoneModal" tabindex="-1" role="dialog"
+    <div class="modal bs-example-modal-sm" id="DoneModal" tabindex="-1" role="dialog"
          aria-labelledby="mySmallModalLabel">
         <div class="modal-dialog modal-sm" role="document">
             <div class="modal-content">
@@ -113,7 +113,7 @@
 
     <!-- Small modal -->
 
-    <div class="modal fade bs-example-modal-sm" id="RetodoModal" tabindex="-1" role="dialog"
+    <div class="modal bs-example-modal-sm" id="RetodoModal" tabindex="-1" role="dialog"
          aria-labelledby="mySmallModalLabel">
         <div class="modal-dialog modal-sm" role="document">
             <div class="modal-content">
@@ -147,13 +147,18 @@
         function values(ID) {
             $("#id").val(ID);
             var ID = ID
-            //获取变量
+            //获取内容变量
             var div_body = document.getElementById(ID + "-panel-body").innerHTML;
+            //获取优先级变量
             var lab_priority = document.getElementById(ID + "-panel-priority").innerHTML;
+            //获取工作类型变量
             var lab_worktype = document.getElementById(ID + "-panel-worktype").innerHTML;
+            //获取组员变量
             var div_membername = document.getElementById(ID + "-member-name").innerHTML;
             var membername = div_membername.slice(4).split(',')
-            var a_remove_id = document.getElementById('removeid').href = "/deltodo/?id=" + ID;
+
+            //对未完成事项href赋值
+            var a_remove_id = document.getElementById('removeid').href = "/todolist/?delid=" + ID;
 
             //出去空格
             var str = div_body.replace(/^\s+|\s+$/g, "");
@@ -164,28 +169,28 @@
             $('#member_name_modal').selectpicker('val', membername);
 
         }
-
+        //完成栏删除id传递
         function doneremovevalues(ID) {
 
             var ID = ID
             //获取变量
-            var a_remove_id = document.getElementById('removeid').href = "/deltodo/?id=" + ID;
+            var a_remove_id = document.getElementById('removeid').href = "/todolist/?delid=" + ID;
 
         }
-
+        //Todo完成id传递
         function donevalues(ID) {
 
             var ID = ID
             //获取变量
-            var a_remove_id = document.getElementById('doneid').href = "/donetodo/?id=" + ID;
+            var a_remove_id = document.getElementById('doneid').href = "/todolist/?doneid=" + ID;
 
         }
-
+        //Done重做id传递
         function retodovalues(ID) {
 
             var ID = ID
             //获取变量
-            var a_remove_id = document.getElementById('retodovalues').href = "/retodo/?id=" + ID;
+            var a_remove_id = document.getElementById('retodovalues').href = "/todolist/?redoid=" + ID;
 
         }
 

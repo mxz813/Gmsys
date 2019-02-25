@@ -6,6 +6,8 @@ class TodoForm(forms.Form):
     work_type = forms.CharField(required=True)
     priority = forms.CharField(required=True)
     member_name = forms.CharField(required=True)
+
+class TodoModalForm(forms.Form):
     todotext = forms.CharField(widget=forms.Textarea,required=True)
     work_type_modal = forms.CharField(required=True)
     priority_modal = forms.CharField(required=True)

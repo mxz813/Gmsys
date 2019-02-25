@@ -14,12 +14,14 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-from django.urls import path
+from django.urls import path,include
 from django.views.generic import TemplateView
 from users.views import LoginView,LogoutView
-from todolists.views import TodolistView,DeltodoView,DonetodoView,RetodoView
+from todolists.views import TodolistView
 from plans.views import PlansView
 import xadmin
+from django.views.static import serve
+from Gmsys.settings import MEDIA_ROOT
 
 urlpatterns = [
     path('xadmin/', xadmin.site.urls),
@@ -27,10 +29,10 @@ urlpatterns = [
     path('login/', LoginView.as_view(),name = "login"),
     path('logout/', LogoutView.as_view(),name = "logout"),
     path('todolist/', TodolistView.as_view(),name = "todolist"),
-    path('deltodo/',DeltodoView.as_view() ,name = "deltodo"),
-    path('donetodo/',DonetodoView.as_view() ,name = "donetodo"),
-    path('retodo/',RetodoView.as_view() ,name = "retodo"),
     path('plan/',PlansView.as_view() ,name = "plan"),
+    path('media/?path.*)',serve,{"document_root":MEDIA_ROOT}),
+
+
 
 
 ]

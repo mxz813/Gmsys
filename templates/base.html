@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <!-- 网站主语言 -->
 <html lang="zh-cn">
-
+{% load staticfiles %}
 <head>
     <!-- 网站采用的字符编码 -->
     <meta charset="utf-8">
@@ -14,9 +14,9 @@
     <!-- 预留网站标题的位置 -->
     <title>{% block title %}{% endblock %}</title>
     <!-- 引入bootstrap的css文件 -->
-    <link href="/static/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="{% static 'bootstrap/css/bootstrap.min.css' %}" rel="stylesheet">
     <!-- Latest compiled and minified CSS -->
-    <link rel="stylesheet" href="/static/bootstrap-select/css/bootstrap-select.min.css">
+    <link rel="stylesheet" href="{% static 'bootstrap-select/css/bootstrap-select.min.css' %}">
 
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
     <!--[if lt IE 9]>
@@ -35,14 +35,14 @@
 <!-- Bootstrap core JavaScript
 ================================================== -->
 <!-- Placed at the end of the document so the pages load faster -->
-<script src="/static/bootstrap/js/jquery.min.js"></script>
-<script>window.jQuery || document.write('<script src="/static/bootstrap/js/jquery.min.js"><\/script>')</script>
-<script src="/static/bootstrap/js/bootstrap.min.js"></script>
+<script src="{% static 'bootstrap/js/jquery.min.js' %}"></script>
+<script>window.jQuery || document.write('<script src="{% static 'bootstrap/js/jquery.min.js' %}"><\/script>')</script>
+<script src="{% static 'bootstrap/js/bootstrap.min.js' %}"></script>
 <!-- Latest compiled and minified JavaScript -->
-<script src="/static/bootstrap-select/js/bootstrap-select.min.js"></script>
+<script src="{% static 'bootstrap-select/js/bootstrap-select.min.js' %}"></script>
 
 <!-- (Optional) Latest compiled and minified JavaScript translation files -->
-<script src="/static/bootstrap-select/js/i18n/defaults-zh_CN.min.js"></script>
+<script src="{% static 'bootstrap-select/js/i18n/defaults-zh_CN.min.js' %}"></script>
 
 </body>
 
