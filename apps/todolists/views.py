@@ -46,7 +46,7 @@ class TodolistView(View):
             if redo_id:
                 Todo.objects.filter(id=redo_id).update(is_done=False, add_time=datetime.now())
 
-            #对TODOLIST进行分页
+            #TODOLIST进行分页
             try:
                 page = request.GET.get('page', 1)
             except PageNotAnInteger:
