@@ -26,6 +26,11 @@ class TodolistView(View):
             if work_type:
                 all_todo = all_todo.filter(work_type=work_type)
 
+            #筛选是否完成
+            is_done = request.GET.get('isd', "")
+            if is_done:
+                all_todo = all_todo.filter(is_done=is_done)
+
             #删除事项
             del_id = request.GET.get("delid")
             if del_id:
@@ -51,15 +56,17 @@ class TodolistView(View):
 
             # Provide Paginator with the request object for complete querystring generation
 
-            p = Paginator(all_todo, 20,request=request)
+            p = Paginator(all_todo, 10,request=request)
 
             todos = p.page(page)
+
 
             return render(request, "todolist.html", {
                 "all_todo": todos,
                 "all_usernames": all_usernames,
                 "priority": priority,
                 "work_type": work_type,
+                "is_done": is_done,
 
             })
         else:
