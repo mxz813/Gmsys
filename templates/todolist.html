@@ -149,7 +149,7 @@
                                 {% ifequal todo.work_type "6" %}宣传工作{% endifequal %}</h3>
                         </div>
                         <div class="panel-body" id="{{ todo.id }}-panel-body">
-                            {{ todo.contents }}
+                            {{ todo.contents|linebreaksbr }}
                         </div>
                         <div class="panel-footer" id="{{ todo.id }}-member-name">执行人：{{ todo.member_name }}</div>
                     </div>
@@ -187,7 +187,7 @@
                     </ul>
                 </nav>
             </div>
-            <!-- Button trigger modal -->>
+            <!-- Button trigger modal -->
             {#            <div class="well col-md-6">#}
             {#                <div class="panel panel-default">#}
             {#                    <div class="panel-body text-center">#}
