@@ -3,33 +3,33 @@ from django.shortcuts import render
 from django.views.generic.base import View
 from apps.todolists.models import Todo
 from users.models import UserProfile
-from datetime import datetime
 from django.http import HttpResponseRedirect
 from .forms import TodoForm,TodoModalForm
 from pure_pagination import Paginator, EmptyPage, PageNotAnInteger
-
+import datetime
+from django.db.models import Q
 
 # Create your views here.
 
 class TodolistView(View):
     def get(self, request):
         if request.user.is_authenticated:
-            all_todo = Todo.objects.all()
+            all_todo = Todo.objects.all().filter(Q(add_time__year=datetime.datetime.now().year)&Q(add_time__month=datetime.datetime.now().month)).order_by("-add_time")
             all_usernames = UserProfile.objects.all()
 
             #优先级筛选
             priority= request.GET.get('pr',"")
             if priority:
-                all_todo =all_todo.filter(priority=priority)
+                all_todo =Todo.objects.all().filter(priority=priority).order_by("-add_time")
             #取出工作类型
             work_type = request.GET.get('wt', "")
             if work_type:
-                all_todo = all_todo.filter(work_type=work_type)
+                all_todo = Todo.objects.all().filter(work_type=work_type).order_by("-add_time")
 
             #筛选是否完成
             is_done = request.GET.get('isd', "")
             if is_done:
-                all_todo = all_todo.filter(is_done=is_done)
+                all_todo = Todo.objects.all().filter(is_done=is_done).order_by("-done_time")
 
             #删除事项
             del_id = request.GET.get("delid")

@@ -14,9 +14,9 @@ class GlobalSetting(object):
     # menu_style = "accordion"
 
 class TodoAdmin(object):
-    list_display = ('user_name', 'contents', 'add_time', 'priority', 'is_done')
-    list_filter = ['user_name', 'contents', 'add_time', 'priority', 'is_done']
-    search_fields = ['user_name', 'contents', 'priority', 'is_done']
+    list_display = ('user_name', 'contents', 'add_time', 'priority', 'is_done','member_name','done_time','work_type')
+    list_filter = ['user_name', 'contents', 'add_time', 'priority', 'is_done','member_name','done_time','work_type']
+    search_fields = ['user_name', 'contents', 'priority', 'is_done','member_name','work_type']
 
 
 xadmin.site.register(Todo, TodoAdmin)
