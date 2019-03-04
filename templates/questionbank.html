@@ -1,0 +1,76 @@
+<!-- extends表明此页面继承自 base.html 文件 -->
+{% extends "base.html" %}
+
+<!-- 写入 base.html 中定义的 title -->
+{% block title %}
+    题库-ATS工班管理系统
+{% endblock title %}
+
+<!-- 写入 base.html 中定义的 content -->
+{% block content %}
+    <div class="container">
+        <!-- Main component for a primary marketing message or call to action -->
+        <div class="row">
+        <div class="col-lg-2 pull-right">
+            <div class="input-group">
+                <input type="text" class="form-control" placeholder="题号搜索" id="question_num" name="question_num">
+                <span class="input-group-btn">
+        <span class="input-group-btn "><a href="" onclick="getnum(this)" class="btn btn-default"
+                                                             role="button">Go!</a></span>
+      </span>
+            </div><!-- /input-group -->
+        </div><!-- /.col-lg-6 -->
+        </div>
+        {% for question in all_question.object_list %}
+
+            <div class="alert alert-info" role="alert">
+                <h3>{{ question.id }}、{{ question.question_title }}</h3>
+                <p>答案:{{ question.answer }}</p>
+            </div>
+        {% endfor %}
+
+
+        <nav aria-label="Page navigation" class="text-center">
+            <ul class="pagination">
+                <li>
+                    {% if all_question.has_previous %}
+                        <li class="disabled"><a href="?{{ all_question.previous_page_number.querystring }}"
+                                                aria-label="Previous"><span
+                                aria-hidden="true">&laquo;</span></a></li>
+                    {% endif %}
+
+                {% for page in all_question.pages %}
+                    {% if page %}
+                        {% ifequal page all_question.number %}
+                            <li class="active"><a href="?{{ page.querystring }}">{{ page }} <span
+                                    class="sr-only">{{ page }}</span></a></li>
+                        {% else %}
+                            <li><a href="?{{ page.querystring }}" class="page">{{ page }}</a></li>
+                        {% endifequal %}
+                    {% else %}
+                        <li><a href="">...</a></li>
+                    {% endif %}
+                {% endfor %}
+                {% if all_question.has_next %}
+                    <li>
+                        <a href="?{{ all_question.next_page_number.querystring }}" aria-label="Next">
+                            <span aria-hidden="true">&raquo;</span>
+                        </a>
+                    </li>
+                {% endif %}
+                </li>
+            </ul>
+        </nav>
+
+
+    </div> <!-- /container -->
+         <script type="text/javascript">
+            function getnum(a) {
+                var qnum = document.getElementById("question_num").value;
+                a.href = '/que/bank/?qn=' + qnum ;
+            }
+        </script>
+{% endblock content %}
+
+
+

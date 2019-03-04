@@ -17,8 +17,9 @@ from django.contrib import admin
 from django.urls import path,include
 from django.views.generic import TemplateView
 from users.views import LoginView,LogoutView
-from todolists.views import TodolistView
+from todolists.views import TodolistView,UsualtodoView
 from plans.views import PlansView
+from question.views import QuestionsView,QuestionBankView
 import xadmin
 from django.views.static import serve
 from Gmsys.settings import MEDIA_ROOT
@@ -29,7 +30,9 @@ urlpatterns = [
     path('login/', LoginView.as_view(),name = "login"),
     path('logout/', LogoutView.as_view(),name = "logout"),
     path('todolist/', TodolistView.as_view(),name = "todolist"),
+    path('usualtodo/', UsualtodoView.as_view(),name = "usualtodo"),
     path('plan/',PlansView.as_view() ,name = "plan"),
+    path('que/',include('question.urls',namespace="que")),
     path('media/?path.*)',serve,{"document_root":MEDIA_ROOT}),
 
 

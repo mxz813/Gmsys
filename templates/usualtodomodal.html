@@ -1,0 +1,273 @@
+{% block modal %}
+    <!-- 编辑日常事务 -->
+    <form action="/usualtodo/" method="post" id="todo_form" name="todo_form">
+        <div class="modal bs-example-modal-lg" id="editModal" tabindex="-1" role="dialog"
+             aria-labelledby="editModalLabel">
+            <div class="modal-dialog modal-lg" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                                aria-hidden="true">&times;</span></button>
+                        <h2 class="modal-title" id="editModalLabel">修改事项内容:</h2>
+                    </div>
+                    <div class="modal-body">
+                        <div class="form-group">
+                            <input type="hidden" id="id" name="id" value="">
+                            <textarea class="form-control" name="usual_todotext" rows="5" id="usual_todotext"></textarea>
+                        </div>
+                    <div class="form-inline">
+                        <div class="form-group">
+                            <label class="sr-only" for="usual_work_type_modal"usual_>work_type_modal</label>
+                            <select class="selectpicker" title="请选择工作类型" id="usual_work_type_modal" name="usual_work_type_modal">
+
+                                <option value="0">日常工作</option>
+                                <option value="1">安全管理</option>
+                                <option value="2">生产管理</option>
+                                <option value="3">质量管理</option>
+                                <option value="4">综合管理</option>
+                                <option value="5">物资管理</option>
+                                <option value="6">宣传工作</option>
+
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="sr-only" for="usual_priority_modal">usual_priority_modal</label>
+                            <select class="selectpicker" title="请选择优先级" id="usual_priority_modal" name="usual_priority_modal">
+                                <option value="1">重要</option>
+                                <option value="2">一般</option>
+                                <option value="3">日常</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="sr-only" for="usual_member_name_modal">usual_member_name_modal</label>
+                            <select class="selectpicker" id="usual_member_name_modal" name="usual_member_name_modal" multiple
+                                    title="请选择执行人" data-actions-box="true">
+                                {% for all_username in all_usernames %}
+                                    <option value="{{ all_username.nick_name }}">{{ all_username.nick_name }}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="sr-only" for="usual_plandonetime_modal">usual_plandonetime_modal</label>
+                            <input type="text" class="plan_donetime form-control" placeholder="计划完成时间" value=""
+                                   id="usual_plandonetime_modal" name="usual_plandonetime_modal">
+                        </div>
+                    </div>
+
+                    </div>
+                    <div class="modal-footer">
+                        <button type="submit" class="btn btn-primary">保存修改</button>
+                        </a>
+                        <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% csrf_token %}
+    </form>
+
+        <!-- Modal -->
+    <form action="/usualtodo/" method="post" id="addtodo_form" name="addtodo_form">
+        <div class="modal bs-example-modal-lg" id="addModal" tabindex="-1" role="dialog"
+             aria-labelledby="myModalLabel">
+            <div class="modal-dialog modal-lg" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                                aria-hidden="true">&times;</span></button>
+                        <h2 class="modal-title" id="myModalLabel">修改事项内容:</h2>
+                    </div>
+                    <div class="modal-body">
+                        <div class="form-group">
+                            <input type="hidden" id="id" name="id" value="">
+                            <textarea class="form-control" name="todotext" rows="5" id="todotext"></textarea>
+                        </div>
+                        <div class="form-inline">
+                            <div class="form-group">
+                                <label class="sr-only" for="work_type_modal">work_type_modal</label>
+                                <select class="selectpicker" title="请选择工作类型" id="work_type_modal"
+                                        name="work_type_modal">
+
+                                    <option value="0">日常工作</option>
+                                    <option value="1">安全管理</option>
+                                    <option value="2">生产管理</option>
+                                    <option value="3">质量管理</option>
+                                    <option value="4">综合管理</option>
+                                    <option value="5">物资管理</option>
+                                    <option value="6">宣传工作</option>
+
+                                </select>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="sr-only" for="priority_modal">priority_modal</label>
+                                <select class="selectpicker" title="请选择优先级" id="priority_modal" name="priority_modal">
+                                    <option value="1">重要</option>
+                                    <option value="2">一般</option>
+                                    <option value="3">日常</option>
+                                </select>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="sr-only" for="member_name_modal">member_name_modal</label>
+                                <select class="selectpicker" id="member_name_modal" name="member_name_modal" multiple
+                                        title="请选择执行人" data-actions-box="true">
+                                    {% for all_username in all_usernames %}
+                                        <option value="{{ all_username.nick_name }}">{{ all_username.nick_name }}</option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="sr-only" for="plandonetime_modal">plandonetime_modal</label>
+                                <input type="text" class="plan_donetime form-control" placeholder="计划完成时间" value=""
+                                       id="plandonetime_modal" name="plandonetime_modal">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="submit" class="btn btn-primary">保存修改</button>
+                        </a>
+                        <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% csrf_token %}
+    </form>
+
+
+    <!-- 删除事务 -->
+
+    <div class="modal bs-example-modal-sm" id="RemoveModal" tabindex="-1" role="dialog"
+         aria-labelledby="mySmallModalLabel">
+        <div class="modal-dialog modal-sm" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                            aria-hidden="true">&times;</span></button>
+                    <h2 class="modal-title" id="myModalLabel">提示:</h2>
+                </div>
+                <div class="modal-body">
+
+                    <h3><p>确认是否删除该事项?</p></h3>
+
+                </div>
+                <div class="modal-footer">
+                    <a href="" id="removeid">
+                        <button type="submit" class="btn btn-primary">确定</button>
+                    </a>
+                    </a>
+                    <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+{% endblock %}
+{% block script %}
+    <script type="text/javascript">
+
+        //触发模态框的同时调用此方法
+
+        function valuesid(ID) {
+            $("#id").val(ID);
+            var ID = ID
+            //获取内容变量
+            var div_body = document.getElementById(ID + "-panel-body").innerHTML;
+            //获取优先级变量
+            var lab_priority = document.getElementById(ID + "-panel-priority").innerHTML;
+            //获取工作类型变量
+            var lab_worktype = document.getElementById(ID + "-panel-worktype").innerHTML;
+            //获取组员变量
+            var div_membername = document.getElementById(ID + "-member-name").innerHTML;
+            var membername = div_membername.slice(4).split(',')
+            //获取计划完成时间
+            var plan_donetime = document.getElementById(ID + "-plan-donetime").innerHTML;
+
+            //对未完成事项href赋值
+            var a_remove_id = document.getElementById('removeid').href = "/usualtodo/?delid=" + ID;
+
+            //出去空格
+            // var str = div_body.trim()
+            var str = div_body.replace(/^\s+|\s+$/g, "").split('<br>');
+
+            //向模态框中传值
+            $('#usual_todotext').val(str.join('\n'));
+            $('#usual_plandonetime_modal').val(plan_donetime);
+            $('#usual_priority_modal').selectpicker('val', lab_priority);
+            $('#usual_work_type_modal').selectpicker('val', lab_worktype);
+            $('#usual_member_name_modal').selectpicker('val', membername);
+
+
+
+        }
+        function valuesplus(ID) {
+            $("#id").val(ID);
+            var ID = ID
+            //获取内容变量
+            var div_body = document.getElementById(ID + "-panel-body").innerHTML;
+            //获取优先级变量
+            var lab_priority = document.getElementById(ID + "-panel-priority").innerHTML;
+            //获取工作类型变量
+            var lab_worktype = document.getElementById(ID + "-panel-worktype").innerHTML;
+            //获取组员变量
+            var div_membername = document.getElementById(ID + "-member-name").innerHTML;
+            var membername = div_membername.slice(4).split(',')
+            //获取计划完成时间
+            var plan_donetime = document.getElementById(ID + "-plan-donetime").innerHTML;
+
+            //对未完成事项href赋值
+            var a_remove_id = document.getElementById('removeid').href = "/usualtodo/?delid=" + ID;
+
+            //出去空格
+            // var str = div_body.trim()
+            var str = div_body.replace(/^\s+|\s+$/g, "").split('<br>');
+
+
+            //向模态框中传值
+            $('#todotext').val(str.join('\n'));
+            $('#plandonetime_modal').val(plan_donetime);
+            $('#priority_modal').selectpicker('val', lab_priority);
+            $('#work_type_modal').selectpicker('val', lab_worktype);
+            $('#member_name_modal').selectpicker('val', membername);
+
+
+        }
+
+
+        //完成栏删除id传递
+        function doneremovevalues(ID) {
+
+            var ID = ID
+            //获取变量
+            var a_remove_id = document.getElementById('removeid').href = "/usualtodo/?delid=" + ID;
+
+        }
+
+        //Todo完成id传递
+        function donevalues(ID) {
+
+            var ID = ID
+            //获取变量
+            var a_remove_id = document.getElementById('doneid').href = "/usualtodo/?doneid=" + ID;
+
+        }
+
+        //Done重做id传递
+        function retodovalues(ID) {
+
+            var ID = ID
+            //获取变量
+            var a_remove_id = document.getElementById('retodovalues').href = "/usualtodo/?redoid=" + ID;
+
+        }
+
+    </script>
+
+{% endblock %}

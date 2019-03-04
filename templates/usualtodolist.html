@@ -1,0 +1,306 @@
+<!-- extends表明此页面继承自 base.html 文件 -->
+{% extends "base.html" %}
+
+
+<!-- 写入 base.html 中定义的 title -->
+{% block title %}
+    日常计划--ATS工班管理系统
+{% endblock title %}
+
+<!-- 写入 base.html 中定义的 content -->
+{% block content %}
+    <div class="container">
+        <!-- Main component for a primary marketing message or call to action -->
+
+        <div class="row">
+
+            <form action="{% url 'usualtodo' %}" method="post" id="addtodo_form" name="addtodo_form">
+                <div class="well">
+                    <div class="form-group">
+                        <label class="sr-only" for="add_todo">add todo</label>
+                        <textarea class="form-control" id="add_todo" name="add_todo" placeholder="添加事项" rows="5"
+                        ></textarea>
+                    </div>
+                    <div class="form-inline">
+                        <div class="form-group">
+                            <label class="sr-only" for="nember_name">job</label>
+                            <select class="selectpicker" title="请选择工作类型" id="work_type" name="work_type">
+
+                                <option value="0">日常工作</option>
+                                <option value="1">安全管理</option>
+                                <option value="2">生产管理</option>
+                                <option value="3">质量管理</option>
+                                <option value="4">综合管理</option>
+                                <option value="5">物资管理</option>
+                                <option value="6">宣传工作</option>
+
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label class="sr-only" for="priority">priority</label>
+                            <select class="selectpicker" title="请选择优先级" id="priority" name="priority">
+                                <option value="1">重要</option>
+                                <option value="2">一般</option>
+                                <option value="3">日常</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label class="sr-only" for="nember_name">member name</label>
+                            <select class="selectpicker" id="member_name" name="member_name" multiple title="请选择执行人"
+                                    data-actions-box="true">
+                                {% for all_username in all_usernames %}
+                                    <option value="{{ all_username.nick_name }}">{{ all_username.nick_name }}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label class="sr-only" for="plandonetime">palndonetime</label>
+                            <input type="text" class="plan_donetime form-control" placeholder="计划完成时间" value=""
+                                   id="plandonetime" name="plandonetime">
+                        </div>
+                        <div class="form-group pull-right">
+                            <button class="btn btn-default" type="submit">＋</button>
+                        </div>
+                    </div>
+                </div>
+
+                {% csrf_token %}
+            </form>
+            <!-- 告警信息!-->
+            {% if msg != null %}
+                <div class="alert alert-danger alert-dismissible" role="alert">
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span
+                            aria-hidden="true">&times;</span></button>
+                    <p class="text-center"><strong>{{ msg }}</strong></p>
+                </div>
+            {% endif %}
+
+            <div class="well">
+                <div class="btn-group" role="group" aria-label="is_done">
+                    <a href="?wt={{ work_type }}&pr={{ priority }}&st={{ start_date }}&et={{ end_date }}&gn={{ member_name }}"
+                       class="btn btn-default {% ifequal is_done '' %}active{% endifequal %}" role="button">全部</a>
+                    <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown"
+                            aria-haspopup="true" aria-expanded="false">
+                        完成情况
+                        <span class="caret"></span>
+                    </button>
+                    <ul class="dropdown-menu">
+                        <li>
+                            <a href="?isd=0&pr={{ priority }}&wt={{ work_type }}&st={{ start_date }}&et={{ end_date }}&gn={{ member_name }}"
+                               class="{% ifequal is_done '0' %}active{% endifequal %}" role="button">未完成</a></li>
+                        <li>
+                            <a href="?isd=1&pr={{ priority }}&wt={{ work_type }}&st={{ start_date }}&et={{ end_date }}&gn={{ member_name }}"
+                               class="{% ifequal is_done '1' %}active{% endifequal %}" role="button">已完成</a></li>
+                    </ul>
+
+                </div>
+                <div class="btn-group" role="group" aria-label="priority">
+                    <a href="?wt={{ work_type }}&isd={{ is_done }}&st={{ start_date }}&et={{ end_date }}&gn={{ member_name }}"
+                       class="btn btn-default {% ifequal priority '' %}active{% endifequal %}" role="button">全部</a>
+                    <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown"
+                            aria-haspopup="true" aria-expanded="false">
+                        优先级
+                        <span class="caret"></span>
+                    </button>
+                    <ul class="dropdown-menu">
+                        <li>
+                            <a href="?pr=1&isd={{ is_done }}&wt={{ work_type }}&st={{ start_date }}&et={{ end_date }}&gn={{ member_name }}"
+                               class="{% ifequal priority '1' %}active{% endifequal %}" role="button">重要</a></li>
+                        <li>
+                            <a href="?pr=2&isd={{ is_done }}&wt={{ work_type }}&st={{ start_date }}&et={{ end_date }}&gn={{ member_name }}"
+                               class="{% ifequal priority '2' %}active{% endifequal %}" role="button">一般</a></li>
+                        <li>
+                            <a href="?pr=3&isd={{ is_done }}&wt={{ work_type }}&st={{ start_date }}&et={{ end_date }}&gn={{ member_name }}"
+                               class="{% ifequal priority '3' %}active{% endifequal %}" role="button">日常</a></li>
+                    </ul>
+                </div>
+
+                <div class="btn-group" role="group" aria-label="work_type">
+                    <a href="?isd={{ is_done }}&pr={{ priority }}&st={{ start_date }}&et={{ end_date }}&gn={{ member_name }}"
+                       class="btn btn-default {% ifequal work_type '' %}active{% endifequal %}" role="button">全部</a>
+                    <div class="btn-group" role="group">
+                        <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown"
+                                aria-haspopup="true" aria-expanded="false">
+                            工作类型
+                            <span class="caret"></span>
+                        </button>
+                        <ul class="dropdown-menu">
+                            <li>
+                                <a href="?wt=0&isd={{ is_done }}&pr={{ priority }}&st={{ start_date }}&et={{ end_date }}&gn={{ member_name }}"
+                                   class="{% ifequal work_type '0' %}active{% endifequal %}" role="button">日常工作</a></li>
+                            <li>
+                                <a href="?wt=1&isd={{ is_done }}&pr={{ priority }}&st={{ start_date }}&et={{ end_date }}&gn={{ member_name }}"
+                                   class="{% ifequal work_type '1' %}active{% endifequal %}" role="button">安全管理</a></li>
+                            <li>
+                                <a href="?wt=2&isd={{ is_done }}&pr={{ priority }}&st={{ start_date }}&et={{ end_date }}&gn={{ member_name }}"
+                                   class="{% ifequal work_type '2' %}active{% endifequal %}" role="button">生产管理</a></li>
+                            <li>
+                                <a href="?wt=3&isd={{ is_done }}&pr={{ priority }}&st={{ start_date }}&et={{ end_date }}&gn={{ member_name }}"
+                                   class="{% ifequal work_type '3' %}active{% endifequal %}" role="button">质量管理</a></li>
+                            <li>
+                                <a href="?wt=4&isd={{ is_done }}&pr={{ priority }}&st={{ start_date }}&et={{ end_date }}&gn={{ member_name }}"
+                                   class="{% ifequal work_type '4' %}active{% endifequal %}" role="button">综合管理</a></li>
+                            <li>
+                                <a href="?wt=5&isd={{ is_done }}&pr={{ priority }}&st={{ start_date }}&et={{ end_date }}&gn={{ member_name }}"
+                                   class="{% ifequal work_type '5' %}active{% endifequal %}" role="button">物资管理</a></li>
+                            <li>
+                                <a href="?wt=6&isd={{ is_done }}&pr={{ priority }}&st={{ start_date }}&et={{ end_date }}&gn={{ member_name }}"
+                                   class="{% ifequal work_type '6' %}active{% endifequal %}" role="button">宣传工作</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="btn-group" role="group" aria-label="submit">
+                    <div class="form-inline">
+                        <div class="input-group">
+
+                        <span><input type="text" value="" readonly class="form_datetime form-control"
+                                     placeholder="请选择开始时间" id="stime"></span>
+                            <span><input type="text" value="" readonly class="form_datetime form-control"
+                                         placeholder="请选择结束时间" id="etime"></span>
+                            <span class="input-group-btn "><a href="" onclick="gettime(this)" class="btn btn-default"
+                                                              role="button">确定</a></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="btn-group" role="group" aria-label="submit">
+                    <div class="form-inline">
+                        <div class="input-group">
+
+                        <span><input type="text" value="" class="form-control"
+                                     placeholder="请输入执行人名字" id="gname"></span>
+                            <span class="input-group-btn "><a href="" onclick="getname(this)" class="btn btn-default"
+                                                              role="button">确定</a></span>
+                        </div>
+                    </div>
+                </div>
+
+
+            </div>
+
+            <!-- Button trigger modal -->
+            <div class="well">
+
+                {% for todo in usual_todo.object_list %}
+                    <label class="sr-only" id="{{ todo.id }}-panel-priority">{{ todo.priority }}</label>
+                    <div class="panel
+                            {% ifequal todo.priority 1 %}panel-danger{% endifequal %}
+                            {% ifequal todo.priority 2 %}panel-info{% endifequal %}
+                            {% ifequal todo.priority 3 %}panel-success{% endifequal %}"
+                         id="panel-priority">
+                        <!-- Button trigger modal -->
+
+                        <span><button type="button"
+                                      class="btn btn-default btn-sm pull-right glyphicon glyphicon-remove"
+                                      onclick="valuesid({{ todo.id }})" data-toggle="modal"
+                                      data-target="#RemoveModal.bs-example-modal-sm"></button></span>
+                        {% ifequal todo.is_done 0 %}
+                            <span><button type="button" class="btn btn-default btn-sm pull-right glyphicon glyphicon-plus"
+                                          onclick="valuesplus({{ todo.id }})" data-toggle="modal"
+                                          data-target="#addModal.bs-example-modal-lg"></button></span>
+                            <span><button type="button"
+                                          class="btn btn-default btn-sm pull-right glyphicon glyphicon-edit"
+                                          data-toggle="modal" data-target="#editModal.bs-example-modal-lg"
+                                          onclick="valuesid({{ todo.id }})"></button></span>
+                        {% endifequal %}
+                        <label class="sr-only" id="{{ todo.id }}-plan-donetime">{{ todo.plan_done_time|date:"Y-m-d" }}</label>
+                        <span><h5 class="pull-right">{{ todo.plan_done_time|date:"Y年m月d日" }}</h5></span>
+                        <div class="panel-heading">
+                            <label class="sr-only" id="{{ todo.id }}-panel-worktype">{{ todo.work_type }}</label>
+                            <h3 class="panel-title">
+                                {% ifequal todo.work_type "0" %}日常工作{% endifequal %}
+                                {% ifequal todo.work_type "1" %}安全管理{% endifequal %}
+                                {% ifequal todo.work_type "2" %}生产管理{% endifequal %}
+                                {% ifequal todo.work_type "3" %}质量管理{% endifequal %}
+                                {% ifequal todo.work_type "4" %}综合管理{% endifequal %}
+                                {% ifequal todo.work_type "5" %}物资管理{% endifequal %}
+                                {% ifequal todo.work_type "6" %}宣传工作{% endifequal %}</h3>
+                        </div>
+                        <div class="panel-body">
+                            <p id="{{ todo.id }}-panel-body">{{ todo.contents|linebreaksbr }}</p>
+                        </div>
+                        <div class="panel-footer" id="{{ todo.id }}-member-name">执行人：{{ todo.member_name }}</div>
+                    </div>
+
+                {% endfor %}
+                <nav aria-label="Page navigation" class="text-center">
+                    <ul class="pagination">
+                        <li>
+                            {% if usual_todo.has_previous %}
+                                <li class="disabled"><a href="?{{ usual_todo.previous_page_number.querystring }}"
+                                                        aria-label="Previous"><span
+                                        aria-hidden="true">&laquo;</span></a></li>
+                            {% endif %}
+
+                        {% for page in usual_todo.pages %}
+                            {% if page %}
+                                {% ifequal page usual_todo.number %}
+                                    <li class="active"><a href="?{{ page.querystring }}">{{ page }} <span
+                                            class="sr-only">{{ page }}</span></a></li>
+                                {% else %}
+                                    <li><a href="?{{ page.querystring }}" class="page">{{ page }}</a></li>
+                                {% endifequal %}
+                            {% else %}
+                                <li><a href="">...</a></li>
+                            {% endif %}
+                        {% endfor %}
+                        {% if usual_todo.has_next %}
+                            <li>
+                                <a href="?{{ usual_todo.next_page_number.querystring }}" aria-label="Next">
+                                    <span aria-hidden="true">&raquo;</span>
+                                </a>
+                            </li>
+                        {% endif %}
+                        </li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+        <!-- container end -->
+
+
+    </div>
+    {% block scrip %}
+        <script type="text/javascript">
+            $(".form_datetime").datetimepicker({
+                format: "yyyy-mm-dd",
+                autoclose: true,
+                minView: 3,
+                language: 'zh-CN',
+                weekStart: 1,
+                startView: 3,
+            });
+
+        </script>
+        <script type="text/javascript">
+            $(".plan_donetime").datetimepicker({
+                format: "yyyy-mm-dd",
+                autoclose: true,
+                minView: 2,
+                language: 'zh-CN',
+                weekStart: 1,
+                startView: 2,
+            });
+
+        </script>
+        <script type="text/javascript">
+            function gettime(a) {
+                var stime = document.getElementById("stime").value;
+                var etime = document.getElementById("etime").value;
+                a.href = '/usualtodo/?st=' + stime + '&et=' + etime + '&isd={{ is_done }}&pr={{ priority }}&wt={{ work_type }}&gn={{ member_name }}';
+            }
+        </script>
+        <script type="text/javascript">
+            function getname(a) {
+                var gname = document.getElementById("gname").value;
+                a.href = '/usualtodo/?gn=' + gname + '&isd={{ is_done }}&pr={{ priority }}&wt={{ work_type }}&st={{ start_date }}&et={{ end_date }}';
+            }
+        </script>
+
+    {% endblock scrip %}
+    {% include "usualtodomodal.html" %}
+
+
+
+{% endblock content %}
+
+

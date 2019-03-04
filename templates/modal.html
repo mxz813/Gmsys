@@ -11,39 +11,52 @@
                         <h2 class="modal-title" id="myModalLabel">修改事项内容:</h2>
                     </div>
                     <div class="modal-body">
-                        <input type="hidden" id="id" name="id" value="">
-                        <textarea class="form-control" name="todotext" rows="5" id="todotext"></textarea>
+                        <div class="form-group">
+                            <input type="hidden" id="id" name="id" value="">
+                            <textarea class="form-control" name="todotext" rows="5" id="todotext"></textarea>
+                        </div>
+                        <div class="form-inline">
+                            <div class="form-group">
+                                <label class="sr-only" for="work_type_modal">work_type_modal</label>
+                                <select class="selectpicker" title="请选择工作类型" id="work_type_modal"
+                                        name="work_type_modal">
 
-                        <label class="sr-only" for="work_type_modal">work_type_modal</label>
-                        <select class="selectpicker" title="请选择工作类型" id="work_type_modal" name="work_type_modal">
+                                    <option value="0">日常工作</option>
+                                    <option value="1">安全管理</option>
+                                    <option value="2">生产管理</option>
+                                    <option value="3">质量管理</option>
+                                    <option value="4">综合管理</option>
+                                    <option value="5">物资管理</option>
+                                    <option value="6">宣传工作</option>
 
-                            <option value="0">日常工作</option>
-                            <option value="1">安全管理</option>
-                            <option value="2">生产管理</option>
-                            <option value="3">质量管理</option>
-                            <option value="4">综合管理</option>
-                            <option value="5">物资管理</option>
-                            <option value="6">宣传工作</option>
+                                </select>
+                            </div>
 
-                        </select>
+                            <div class="form-group">
+                                <label class="sr-only" for="priority_modal">priority_modal</label>
+                                <select class="selectpicker" title="请选择优先级" id="priority_modal" name="priority_modal">
+                                    <option value="1">重要</option>
+                                    <option value="2">一般</option>
+                                    <option value="3">日常</option>
+                                </select>
+                            </div>
 
+                            <div class="form-group">
+                                <label class="sr-only" for="member_name_modal">member_name_modal</label>
+                                <select class="selectpicker" id="member_name_modal" name="member_name_modal" multiple
+                                        title="请选择执行人" data-actions-box="true">
+                                    {% for all_username in all_usernames %}
+                                        <option value="{{ all_username.nick_name }}">{{ all_username.nick_name }}</option>
+                                    {% endfor %}
+                                </select>
+                            </div>
 
-                        <label class="sr-only" for="priority_modal">priority_modal</label>
-                        <select class="selectpicker" title="请选择优先级" id="priority_modal" name="priority_modal">
-                            <option value="1">重要</option>
-                            <option value="2">一般</option>
-                            <option value="3">日常</option>
-                        </select>
-
-
-                        <label class="sr-only" for="member_name_modal">member_name_modal</label>
-                        <select class="selectpicker" id="member_name_modal" name="member_name_modal" multiple
-                                title="请选择执行人" data-actions-box="true">
-                            {% for all_username in all_usernames %}
-                                <option value="{{ all_username.nick_name }}">{{ all_username.nick_name }}</option>
-                            {% endfor %}
-                        </select>
-
+                            <div class="form-group">
+                                <label class="sr-only" for="plandonetime_modal">plandonetime_modal</label>
+                                <input type="text" class="plan_donetime form-control" placeholder="计划完成时间" value=""
+                                       id="plandonetime_modal" name="plandonetime_modal">
+                            </div>
+                        </div>
                     </div>
                     <div class="modal-footer">
                         <button type="submit" class="btn btn-primary">保存修改</button>
@@ -157,20 +170,25 @@
             var div_membername = document.getElementById(ID + "-member-name").innerHTML;
             var membername = div_membername.slice(4).split(',')
 
+             var plan_donetime = document.getElementById(ID + "-plan-donetime").innerHTML;
+
             //对未完成事项href赋值
             var a_remove_id = document.getElementById('removeid').href = "/todolist/?delid=" + ID;
 
             //出去空格
-           // var str = div_body.trim()
-           var str = div_body.replace(/^\s+|\s+$/g, "").split('<br>');
+            // var str = div_body.trim()
+            var str = div_body.replace(/^\s+|\s+$/g, "").split('<br>');
 
             //向模态框中传值
             $('#todotext').val(str.join('\n'));
+            $('#plandonetime_modal').val(plan_donetime);
             $('#priority_modal').selectpicker('val', lab_priority);
             $('#work_type_modal').selectpicker('val', lab_worktype);
             $('#member_name_modal').selectpicker('val', membername);
 
+
         }
+
         //完成栏删除id传递
         function doneremovevalues(ID) {
 
@@ -179,6 +197,7 @@
             var a_remove_id = document.getElementById('removeid').href = "/todolist/?delid=" + ID;
 
         }
+
         //Todo完成id传递
         function donevalues(ID) {
 
@@ -187,6 +206,7 @@
             var a_remove_id = document.getElementById('doneid').href = "/todolist/?doneid=" + ID;
 
         }
+
         //Done重做id传递
         function retodovalues(ID) {
 

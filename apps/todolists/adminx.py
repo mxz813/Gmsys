@@ -1,7 +1,7 @@
 # -*- coding:utf-8 -*-
 
 from xadmin import views
-from .models import Todo
+from .models import Todo,UsualTodo
 import xadmin
 
 class BaseSetting(object):
@@ -19,6 +19,12 @@ class TodoAdmin(object):
     search_fields = ['user_name', 'contents', 'priority', 'is_done','member_name','work_type']
 
 
+class UsualTodoAdmin(object):
+    list_display = ('user_name', 'contents', 'add_time', 'priority', 'is_done','member_name','done_time','work_type')
+    list_filter = ['user_name', 'contents', 'add_time', 'priority', 'is_done','member_name','done_time','work_type']
+    search_fields = ['user_name', 'contents', 'priority', 'is_done','member_name','work_type']
+
 xadmin.site.register(Todo, TodoAdmin)
+xadmin.site.register(UsualTodo, UsualTodoAdmin)
 xadmin.site.register(views.BaseAdminView, BaseSetting)
 xadmin.site.register(views.CommAdminView, GlobalSetting)
