@@ -99,7 +99,7 @@
                 <div class="btn-group" role="group" aria-label="priority">
                     <a href="?wt={{ work_type }}&isd={{ is_done }}&st={{ start_date }}&et={{ end_date }}&gn={{ member_name }}"
                        class="btn btn-default {% ifequal priority '' %}active{% endifequal %}" role="button">全部</a>
-                <div class="btn-group" role="group">
+
                 <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown"
                         aria-haspopup="true" aria-expanded="false">
                     优先级
@@ -116,7 +116,7 @@
                         <a href="?pr=3&isd={{ is_done }}&wt={{ work_type }}&st={{ start_date }}&et={{ end_date }}&gn={{ member_name }}"
                            class="{% ifequal priority '3' %}active{% endifequal %}" role="button">日常</a></li>
                 </ul>
-            </div>
+
        </div>
         <div class="btn-group" role="group" aria-label="work_type">
             <a href="?isd={{ is_done }}&pr={{ priority }}&st={{ start_date }}&et={{ end_date }}&gn={{ member_name }}"
