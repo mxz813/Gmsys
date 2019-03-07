@@ -58,7 +58,7 @@
                             <input type="text" class="plan_donetime form-control" placeholder="计划完成时间" value=""
                                    id="plandonetime" name="plandonetime">
                         </div>
-                        <div class="form-group pull-right">
+                        <div class="form-group">
                             <button class="btn btn-default" type="submit">＋</button>
                         </div>
                     </div>
@@ -79,6 +79,7 @@
                 <div class="btn-group" role="group" aria-label="is_done">
                     <a href="?wt={{ work_type }}&pr={{ priority }}&st={{ start_date }}&et={{ end_date }}&gn={{ member_name }}"
                        class="btn btn-default {% ifequal is_done '' %}active{% endifequal %}" role="button">全部</a>
+                 <div class="btn-group" role="group">
                     <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown"
                             aria-haspopup="true" aria-expanded="false">
                         完成情况
@@ -92,7 +93,7 @@
                             <a href="?isd=1&pr={{ priority }}&wt={{ work_type }}&st={{ start_date }}&et={{ end_date }}&gn={{ member_name }}"
                                class="{% ifequal is_done '1' %}active{% endifequal %}" role="button">已完成</a></li>
                     </ul>
-
+                    </div>
                 </div>
                 <div class="btn-group" role="group" aria-label="priority">
                     <a href="?wt={{ work_type }}&isd={{ is_done }}&st={{ start_date }}&et={{ end_date }}&gn={{ member_name }}"

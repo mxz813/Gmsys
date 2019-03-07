@@ -15,7 +15,7 @@ from django.db.models import Q
 class TodolistView(View):
     def get(self, request):
         if request.user.is_authenticated:
-            all_todo = Todo.objects.all().order_by("is_done")
+            all_todo = Todo.objects.all().order_by("is_done","-add_time")
             all_usernames = UserProfile.objects.all()
 
             # 筛选是否完成
