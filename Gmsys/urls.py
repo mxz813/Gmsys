@@ -14,11 +14,12 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-from django.urls import path,include
+from django.urls import path,include,re_path
 from django.views.generic import TemplateView
 from users.views import LoginView,LogoutView
 from todolists.views import TodolistView,UsualtodoView
 from plans.views import PlansView
+from comprehensive.views import SchedulingView
 from question.views import QuestionsView,QuestionBankView
 import xadmin
 from django.views.static import serve
@@ -32,8 +33,9 @@ urlpatterns = [
     path('todolist/', TodolistView.as_view(),name = "todolist"),
     path('usualtodo/', UsualtodoView.as_view(),name = "usualtodo"),
     path('plan/',PlansView.as_view() ,name = "plan"),
+    path('sche/',SchedulingView.as_view() ,name = "sche"),
     path('que/',include('question.urls',namespace="que")),
-    path('media/?path.*)',serve,{"document_root":MEDIA_ROOT}),
+    re_path(r'^media/(?P<path>.*)$',serve,{"document_root":MEDIA_ROOT}),
 
 
 

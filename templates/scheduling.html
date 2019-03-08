@@ -1,0 +1,74 @@
+{% extends "base.html" %}
+
+{% block title %}
+    排班计划--ATS工班管理系统
+{% endblock title %}
+
+{% block content %}
+    <div class="container">
+        <div class="row">
+
+            <div class="blog-main">
+
+
+            <div class="blog-sidebar">
+                  <div class="sidebar-module">
+                    <h4>时间筛选:</h4>
+
+                        {% for planyear in years %}
+                            <a href="?year={{ planyear.id}}">{{ planyear.plan_year }}</a>
+                        {% endfor %}
+
+                </div>
+            <hr>
+
+            </div><!-- /.blog-sidebar -->
+
+                <div class="blog-post">
+                    {% for sche in all_scheduling.object_list %}
+                        <h2 class="blog-post-title">{{ sche.sch_title }}</h2>
+                        <img src="{{ MEDIA_URL }}{{ sche.image }}" class="img-responsive" alt="Responsive image">
+                        <hr>
+                    {% endfor %}
+                </div>
+
+
+                <nav aria-label="Page navigation" class="text-center">
+                    <ul class="pagination">
+                        <li>
+                            {% if all_scheduling.has_previous %}
+                                <li class="disabled"><a href="?{{ all_scheduling.previous_page_number.querystring }}"
+                                                        aria-label="Previous"><span
+                                        aria-hidden="true">&laquo;</span></a></li>
+                            {% endif %}
+
+                        {% for page in all_scheduling.pages %}
+                            {% if page %}
+                                {% ifequal page all_scheduling.number %}
+                                    <li class="active"><a href="?{{ page.querystring }}">{{ page }} <span
+                                            class="sr-only">{{ page }}</span></a></li>
+                                {% else %}
+                                    <li><a href="?{{ page.querystring }}" class="page">{{ page }}</a></li>
+                                {% endifequal %}
+                            {% else %}
+                                <li><a href="">...</a></li>
+                            {% endif %}
+                        {% endfor %}
+                        {% if all_scheduling.has_next %}
+                            <li>
+                                <a href="?{{ all_scheduling.next_page_number.querystring }}" aria-label="Next">
+                                    <span aria-hidden="true">&raquo;</span>
+                                </a>
+                            </li>
+                        {% endif %}
+                        </li>
+                    </ul>
+                </nav>
+
+            </div><!-- /.blog-main -->
+
+
+        </div>
+
+    </div>
+{% endblock %}

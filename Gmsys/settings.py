@@ -45,14 +45,13 @@ INSTALLED_APPS = [
     'plans',
     'pure_pagination',
     'question',
+    'comprehensive',
 
 
 
 
 ]
-BOOTSTRAP4 = {
-    'include_jquery': True,
-}
+
 AUTH_USER_MODEL = "users.UserProfile"
 
 MIDDLEWARE = [
