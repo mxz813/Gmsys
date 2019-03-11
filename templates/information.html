@@ -1,0 +1,29 @@
+<!-- extends表明此页面继承自 base.html 文件 -->
+{% extends "base.html" %}
+
+<!-- 写入 base.html 中定义的 title -->
+{% block title %}
+    首页-ATS工班管理系统
+{% endblock title %}
+
+<!-- 写入 base.html 中定义的 content -->
+{% block content %}
+        <div class="container">
+            <!-- Main component for a primary marketing message or call to action -->
+
+
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    <h2 class="text-center">{{ informations.0.title }}</h2>
+                    <p class="pull-right">作者:{{ informations.0.author }}&nbsp;&nbsp;&nbsp;&nbsp;{{  informations.0.add_time|date:'Y-d-m'}}</p>
+                    <br>
+                    <p>{{ informations.0.contents|linebreaks }}</p>
+                </div>
+            </div>
+
+
+    </div> <!-- /container -->
+{% endblock content %}
+
+
+

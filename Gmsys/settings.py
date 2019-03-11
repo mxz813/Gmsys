@@ -46,6 +46,7 @@ INSTALLED_APPS = [
     'pure_pagination',
     'question',
     'comprehensive',
+    'index',
 
 
 

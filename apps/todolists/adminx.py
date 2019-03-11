@@ -11,7 +11,7 @@ class BaseSetting(object):
 class GlobalSetting(object):
     site_title = "ATS班組管理系統"
     site_footer = "通号中心信号二分中心ATS"
-    # menu_style = "accordion"
+    menu_style = "accordion"
 
 class TodoAdmin(object):
     list_display = ('user_name', 'contents', 'add_time', 'priority', 'is_done','member_name','done_time','work_type')

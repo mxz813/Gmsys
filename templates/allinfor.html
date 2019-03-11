@@ -1,0 +1,64 @@
+<!-- extends表明此页面继承自 base.html 文件 -->
+{% extends "base.html" %}
+
+<!-- 写入 base.html 中定义的 title -->
+{% block title %}
+    首页-ATS工班管理系统
+{% endblock title %}
+
+<!-- 写入 base.html 中定义的 content -->
+{% block content %}
+    <div class="container">
+        <!-- Main component for a primary marketing message or call to action -->
+
+
+        <div class="panel panel-default">
+            <div class="panel-body">
+                {% for infor in allinfor.object_list %}
+                    <p><a href="{% url 'infor' infor.id %}">{{ infor.title }}
+                        <span class="pull-right">{{ infor.add_time|date:'Y-d-m' }}</span></a></p>
+                {% endfor %}
+
+            </div>
+
+        <nav aria-label="Page navigation" class="text-center">
+                    <ul class="pagination">
+                        <li>
+                            {% if allinfor.has_previous %}
+                                <li class="disabled"><a href="?{{ allinfor.previous_page_number.querystring }}"
+                                                        aria-label="Previous"><span
+                                        aria-hidden="true">&laquo;</span></a></li>
+                            {% endif %}
+
+                        {% for page in allinfor.pages %}
+                            {% if page %}
+                                {% ifequal page allinfor.number %}
+                                    <li class="active"><a href="?{{ page.querystring }}">{{ page }} <span
+                                            class="sr-only">{{ page }}</span></a></li>
+                                {% else %}
+                                    <li><a href="?{{ page.querystring }}" class="page">{{ page }}</a></li>
+                                {% endifequal %}
+                            {% else %}
+                                <li><a href="">...</a></li>
+                            {% endif %}
+                        {% endfor %}
+                        {% if allinfor.has_next %}
+                            <li>
+                                <a href="?{{ allinfor.next_page_number.querystring }}" aria-label="Next">
+                                    <span aria-hidden="true">&raquo;</span>
+                                </a>
+                            </li>
+                        {% endif %}
+                        </li>
+                    </ul>
+                </nav>
+        </div>
+
+
+
+
+    </div> <!-- /container -->
+{% endblock content %}
+
+
+

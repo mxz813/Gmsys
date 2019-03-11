@@ -15,7 +15,7 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path,include,re_path
-from django.views.generic import TemplateView
+from index.views import IndexView,InformationView,AtsintroduceView,AllinforView
 from users.views import LoginView,LogoutView
 from todolists.views import TodolistView,UsualtodoView
 from plans.views import PlansView
@@ -27,7 +27,10 @@ from Gmsys.settings import MEDIA_ROOT
 
 urlpatterns = [
     path('xadmin/', xadmin.site.urls),
-    path('', TemplateView.as_view(template_name= "index.html"),name = "index"),
+    path('', IndexView.as_view(),name = "index"),
+    path('infor/id=<int:id>', InformationView.as_view(),name = "infor"),
+    path('intro/', AtsintroduceView.as_view(),name = "intro"),
+    path('allinfor/', AllinforView.as_view(),name = "allinfor"),
     path('login/', LoginView.as_view(),name = "login"),
     path('logout/', LogoutView.as_view(),name = "logout"),
     path('todolist/', TodolistView.as_view(),name = "todolist"),
