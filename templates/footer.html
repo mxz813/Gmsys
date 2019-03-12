@@ -1,6 +1,16 @@
-
 <!-- Footer -->
 
 
+<footer class="py-3 bg-dark fixed-bottom">
 
+    <div class="panel panel-default">
+        <div class="panel-body">
+            友情链接:
+            {% for link in links %}
+                <a href="{{ link.url }}">{{ link.title }}</a>
+            {% endfor %}
+        </div>
+    </div>
+    <p class="m-0 text-center text-white">Copyright © ATS工班 2019</p>
 
+</footer>

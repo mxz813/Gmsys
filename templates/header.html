@@ -20,12 +20,11 @@
                        aria-expanded="false">综合管理 <span class="caret"></span></a>
                     <ul class="dropdown-menu">
                         <li><a href="{% url 'sche' %}">排班计划</a></li>
-                        <li><a href="#">绩效考核</a></li>
-                        <li role="separator" class="divider"></li>
                         <li><a href="{% url 'que:question' %}">每日一问</a></li>
                         <li><a href="{% url 'que:questionbank' %}">题库</a></li>
                     </ul>
                 </li>
+                <li><a href="{% url 'allinfor' %}">信息中心</a></li>
                 <li><a href="{% url 'intro' %}">班组简介</a></li>
             </ul>
             {% if request.user.is_authenticated %}

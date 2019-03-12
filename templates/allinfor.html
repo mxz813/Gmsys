@@ -3,7 +3,7 @@
 
 <!-- 写入 base.html 中定义的 title -->
 {% block title %}
-    首页-ATS工班管理系统
+    信息中心-ATS工班管理系统
 {% endblock title %}
 
 <!-- 写入 base.html 中定义的 content -->
@@ -18,7 +18,6 @@
                     <p><a href="{% url 'infor' infor.id %}">{{ infor.title }}
                         <span class="pull-right">{{ infor.add_time|date:'Y-d-m' }}</span></a></p>
                 {% endfor %}
-
             </div>
 
         <nav aria-label="Page navigation" class="text-center">

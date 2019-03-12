@@ -8,7 +8,7 @@ class IndexView(View):
     def get(self,request):
         links = Links.objects.all()
         informations = Information.objects.all()
-        introduce = Information.objects.filter()
+        introduce = Atsintroduce.objects.filter()
         return render(request,'index.html',{
             'links':links,
             'informations':informations,
@@ -50,7 +50,7 @@ class AllinforView(View):
 
 class AtsintroduceView(View):
     def get(self,request):
-        introduce = Information.objects.filter()
+        introduce = Atsintroduce.objects.filter()
         return render(request,'introduce.html',{
             'introduce':introduce,
 

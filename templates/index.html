@@ -8,52 +8,48 @@
 
 <!-- 写入 base.html 中定义的 content -->
 {% block content %}
-
     <div class="container">
         <!-- Main component for a primary marketing message or call to action -->
-
         <div class="jumbotron">
-        <h1>公告</h1>
-        <p class="lead">Cras justo odio, dapibus ac facilisis in, egestas eget quam. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet.</p>
-        <p><a class="btn btn-lg btn-success" href="#" role="button">Get started today</a></p>
-      </div>
-
-      <!-- Example row of columns -->
-      <div class="row">
-        <div class="col-lg-4">
-          <h2>信息中心 <a class="btn btn-primary pull-right" href="{% url 'allinfor' %}" role="button">更多»</a></h2>
-          {% for information in informations %}
-              <p><a href="{% url 'infor' information.id %}">{{ information.title }}<span
-                            class="pull-right">{{ information.add_time|date:"m-d" }}</span></a><br></p>
-            {% endfor %}
+            <h1>公告</h1>
+            <p class="lead">Cras justo odio, dapibus ac facilisis in, egestas eget quam. Fusce dapibus, tellus ac cursus
+                commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet.</p>
+            <p><a class="btn btn-lg btn-success" href="#" role="button">Get started today</a></p>
         </div>
-        <div class="col-lg-4">
-          <h2>Heading</h2>
-          <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui. </p>
-          <p><a class="btn btn-primary" href="#" role="button">View details &raquo;</a></p>
-       </div>
-        <div class="col-lg-4">
-          <h2>班组简介  <a class="btn btn-primary pull-right" href="#" role="button">更多»</a></h2>
-          <p>{{ introduce.0.contents|linebreaks }}</p>
-        </div>
-      </div>
 
-        <br>
-        <footer class="py-3 bg-dark fixed-bottom">
 
-            <div class="panel panel-default">
-                <div class="panel-body">
-                    友情链接:
-                    {% for link in links %}
-                        <a href="{{ link.url }}">{{ link.title }}</a>
-                    {% endfor %}
-                </div>
+        <!-- Example row of columns -->
+        <div class="row">
+            <div class="col-lg-4">
+                <h2>信息中心 <a class="btn btn-primary pull-right" href="{% url 'allinfor' %}" role="button">更多»</a></h2>
+                {% for information in informations %}
+                    {% if information.title|length <= 21 %}
+                        <p><a href="{% url 'infor' information.id %}">{{ information.title }}<span
+                                class="pull-right">{{ information.add_time|date:"m-d" }}</span></a><br></p>
+                    {% else %}
+                        <p><a href="{% url 'infor' information.id %}">{{ information.title|slice:":21" }}...<span
+                                class="pull-right">{{ information.add_time|date:"m-d" }}</span></a><br></p>
+                    {% endif %}
+                {% endfor %}
             </div>
-            <p class="m-0 text-center text-white">Copyright © ATS工班 2019</p>
+            <div class="col-lg-4">
+                <h2>Heading</h2>
+                <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor
+                    mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna
+                    mollis euismod. Donec sed odio dui. </p>
+                <p><a class="btn btn-primary" href="#" role="button">View details &raquo;</a></p>
+            </div>
+            <div class="col-lg-4">
+                <h2>班组简介 <a class="btn btn-primary pull-right" href="{% url 'intro' %}" role="button">更多»</a></h2>
+                {% if introduce.0.contents|length <= 21 %}
+                    <p>{{ introduce.0.contents|linebreaks }}</p>
+                {% else %}
+                    <p>{{ introduce.0.contents|linebreaks|slice:":75" }}...</p>
+                {% endif %}
+            </div>
+        </div>
 
-        </footer>
-
-
+        {% include 'footer.html' %}
     </div> <!-- /container -->
 
 {% endblock content %}
