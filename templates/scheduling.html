@@ -27,7 +27,7 @@
                 <div class="blog-post">
                     {% for sche in all_scheduling.object_list %}
                         <h2 class="blog-post-title">{{ sche.sch_title }}</h2>
-                        <img src="{{ MEDIA_URL }}{{ sche.image }}" class="img-responsive" alt="Responsive image">
+                        {{ sche.contents|safe }}
                         <hr>
                     {% endfor %}
                 </div>

@@ -2,11 +2,14 @@
 from django.db import models
 from plans.models import PlanYear
 from datetime import datetime
+from DjangoUeditor.models import UEditorField
 
 # Create your models here.
 class Scheduling(models.Model):
     sch_title = models.CharField(default='',max_length=100,verbose_name='排班标题')
-    image = models.ImageField(default='',upload_to="scheduling/%Y/%m", verbose_name="排班表", max_length=100,blank=True,null=True)
+    contents = UEditorField(verbose_name='排班内容', width=600, height=300, toolbars="full",
+                            imagePath="information/ueditor/%(basename)s_%(datetime)s.%(extname)s",
+                            filePath="information/ueditor/%(basename)s_%(datetime)s.%(extname)s", default='',blank=True,null=True)
     scheduling_year =models.ForeignKey(PlanYear,on_delete=models.CASCADE,verbose_name="排班年份",default=1)
     add_time = models.DateTimeField(default=datetime.now)
 

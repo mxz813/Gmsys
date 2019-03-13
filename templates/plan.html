@@ -16,7 +16,7 @@
                 <div class="blog-post">
                     {% for plarticle in plarticles.object_list %}
                         <h2 class="blog-post-title">{{ plarticle.article_title }}</h2>
-                        <p>{{ plarticle.article_cont|linebreaksbr }}</p>
+                        {{ plarticle.article_cont|safe}}
                         <hr>
                     {% endfor %}
                 </div>
@@ -67,7 +67,7 @@
                 </div>
                 <div class="sidebar-module sidebar-module-inset">
                     <h4>{{ maintains.0.process_title}}</h4>
-                    <p>{{ maintains.0.process_cont|linebreaksbr }}</p>
+                    {{ maintains.0.process_cont|safe }}
                 </div>
             </div><!-- /.blog-sidebar -->
 

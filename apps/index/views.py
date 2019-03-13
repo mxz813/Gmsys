@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from .models import Information,Atsintroduce,Links
+from .models import Information,Atsintroduce,Links,Notice
 from django.views.generic.base import View
 from pure_pagination import Paginator, EmptyPage, PageNotAnInteger
 # Create your views here.
@@ -9,10 +9,12 @@ class IndexView(View):
         links = Links.objects.all()
         informations = Information.objects.all()
         introduce = Atsintroduce.objects.filter()
+        notice = Notice.objects.all()
         return render(request,'index.html',{
             'links':links,
             'informations':informations,
             'introduce':introduce,
+            'notice':notice,
 
         })
 

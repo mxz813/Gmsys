@@ -11,10 +11,8 @@
     <div class="container">
         <!-- Main component for a primary marketing message or call to action -->
         <div class="jumbotron">
-            <h1>公告</h1>
-            <p class="lead">Cras justo odio, dapibus ac facilisis in, egestas eget quam. Fusce dapibus, tellus ac cursus
-                commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet.</p>
-            <p><a class="btn btn-lg btn-success" href="#" role="button">Get started today</a></p>
+            <h1>{{ notice.first.title }}</h1>
+            <p class="lead">{{ notice.first.contents |safe }}</p>
         </div>
 
 
@@ -40,13 +38,13 @@
                 <p><a class="btn btn-primary" href="#" role="button">View details &raquo;</a></p>
             </div>
             <div class="col-lg-4">
-                <h2>班组简介 <a class="btn btn-primary pull-right" href="{% url 'intro' %}" role="button">更多»</a></h2>
-                {% if introduce.0.contents|length <= 21 %}
-                    <p>{{ introduce.0.contents|linebreaks }}</p>
-                {% else %}
-                    <p>{{ introduce.0.contents|linebreaks|slice:":75" }}...</p>
-                {% endif %}
+                <h2>Heading</h2>
+                <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor
+                    mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna
+                    mollis euismod. Donec sed odio dui. </p>
+                <p><a class="btn btn-primary" href="#" role="button">View details &raquo;</a></p>
             </div>
+
         </div>
 
         {% include 'footer.html' %}

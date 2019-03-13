@@ -14,10 +14,10 @@
 
             <div class="panel panel-default">
                 <div class="panel-body">
-                    <h2 class="text-center">{{ informations.0.title }}</h2>
-                    <p class="pull-right">作者:{{ informations.0.author }}&nbsp;&nbsp;&nbsp;&nbsp;{{  informations.0.add_time|date:'Y-d-m'}}</p>
+                    <h2 class="text-center">{{ informations.first.title }}</h2>
+                    <p class="pull-right">作者:{{ informations.first.author }}&nbsp;&nbsp;&nbsp;&nbsp;{{  informations.first.add_time|date:'Y-d-m'}}</p>
                     <br>
-                    <p>{{ informations.0.contents|linebreaks }}</p>
+                    {{ informations.first.contents|safe }}
                 </div>
             </div>
 

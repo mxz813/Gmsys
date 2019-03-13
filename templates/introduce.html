@@ -15,9 +15,7 @@
             <div class="panel panel-default">
                 <div class="panel-body">
                     <h2 class="text-center">{{ introduce.0.title }}</h2>
-                    <img src="{{ media }}{{ introduce.0.image }}" class="img-responsive" alt="Responsive image">
-                    <br>
-                    <p>{{ introduce.0.contents|linebreaks }}</p>
+                    <p>{{ introduce.0.contents|safe }}</p>
                 </div>
             </div>
 
