@@ -1,23 +1,27 @@
 <!-- extends表明此页面继承自 base.html 文件 -->
 {% extends "base.html" %}
-
+{% load staticfiles %}
 <!-- 写入 base.html 中定义的 title -->
 {% block title %}
     班组简介-ATS工班管理系统
 {% endblock title %}
 
 <!-- 写入 base.html 中定义的 content -->
+
 {% block content %}
-        <div class="container">
-            <!-- Main component for a primary marketing message or call to action -->
+    <!-- Main jumbotron for a primary marketing message or call to action -->
+        <img src="{% static 'images/aboutus.jpg' %}" class="img-responsive" alt="Responsive image">
+    <br>
+    <div class="container">
+        <!-- Main component for a primary marketing message or call to action -->
 
 
-            <div class="panel panel-default">
-                <div class="panel-body">
-                    <h2 class="text-center">{{ introduce.0.title }}</h2>
-                    <p>{{ introduce.0.contents|safe }}</p>
-                </div>
+        <div class="panel panel-default">
+            <div class="panel-body">
+                <h2 class="text-center">{{ introduce.0.title }}</h2>
+                <p>{{ introduce.0.contents|safe }}</p>
             </div>
+        </div>
 
 
     </div> <!-- /container -->

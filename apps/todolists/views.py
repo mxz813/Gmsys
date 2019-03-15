@@ -254,3 +254,4 @@ class UsualtodoView(View):
                 "all_todo": all_todo,
                 "all_usernames": all_usernames,
             })
+

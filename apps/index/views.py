@@ -7,7 +7,7 @@ from pure_pagination import Paginator, EmptyPage, PageNotAnInteger
 class IndexView(View):
     def get(self,request):
         links = Links.objects.all()
-        informations = Information.objects.all()
+        informations = Information.objects.all()[:5]
         introduce = Atsintroduce.objects.filter()
         notice = Notice.objects.all()
         return render(request,'index.html',{

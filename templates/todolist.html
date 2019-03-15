@@ -11,7 +11,7 @@
 {% block content %}
     <div class="container">
         <!-- Main component for a primary marketing message or call to action -->
-
+        <br>
         <div class="row">
 
             <form action="{% url 'todolist' %}" method="post" id="addtodo_form" name="addtodo_form">
@@ -169,7 +169,7 @@
             <div class="form-inline">
                 <div class="input-group">
 
-                        <span><input type="text" value="" class="form-control"
+                        <span><input type="text" value="{{ request.user.nick_name }}" class="form-control"
                                      placeholder="请输入执行人名字" id="gname"></span>
                     <span class="input-group-btn "><a href="" onclick="getname(this)" class="btn btn-default"
                                                       role="button">确定</a></span>

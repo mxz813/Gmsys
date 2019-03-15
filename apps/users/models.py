@@ -3,7 +3,7 @@ from datetime import datetime
 
 from django.db import models
 from django.contrib.auth.models import AbstractUser
-
+from django.db.models import Q
 
 # Create your models here.
 class UserProfile(AbstractUser):
@@ -21,3 +21,8 @@ class UserProfile(AbstractUser):
 
     def __str__(self):
         return self.nick_name
+
+
+    def message_nums(self):
+        from apps.todolists.models import Todo
+        return Todo.objects.filter(Q(member_name__icontains=self.nick_name)&Q(is_done=0)).count()
