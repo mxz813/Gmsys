@@ -1,25 +1,29 @@
 from django.shortcuts import render
-from .models import Information,Atsintroduce,Links,Notice
+from .models import Information,Atsintroduce,Links,Notice,Banner
 from django.views.generic.base import View
 from pure_pagination import Paginator, EmptyPage, PageNotAnInteger
+from users.utils import LoginRequiredMixin
+
 # Create your views here.
 
-class IndexView(View):
+class IndexView(LoginRequiredMixin,View):
     def get(self,request):
         links = Links.objects.all()
-        informations = Information.objects.all()[:5]
+        informations = Information.objects.all()[:11]
         introduce = Atsintroduce.objects.filter()
         notice = Notice.objects.all()
+        banner = Banner.objects.all()
         return render(request,'index.html',{
             'links':links,
             'informations':informations,
             'introduce':introduce,
             'notice':notice,
+            'banner':banner,
 
         })
 
 
-class InformationView(View):
+class InformationView(LoginRequiredMixin,View):
     def get(self,request,id):
         informations = Information.objects.filter(id=id)
         return render(request,'information.html',{
@@ -27,7 +31,7 @@ class InformationView(View):
 
         })
 
-class AllinforView(View):
+class AllinforView(LoginRequiredMixin,View):
     def get(self,request):
         allinfor = Information.objects.all()
 
@@ -50,7 +54,7 @@ class AllinforView(View):
         })
 
 
-class AtsintroduceView(View):
+class AtsintroduceView(LoginRequiredMixin,View):
     def get(self,request):
         introduce = Atsintroduce.objects.filter()
         return render(request,'introduce.html',{

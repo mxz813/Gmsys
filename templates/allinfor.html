@@ -9,9 +9,15 @@
 <!-- 写入 base.html 中定义的 content -->
 {% block content %}
     <div class="container">
+            <br>
         <!-- Main component for a primary marketing message or call to action -->
+        {% block brtree %}
+            <ol class="breadcrumb">
+                <li><a href="/">首页</a></li>
+                <li class="active"><a href="{% url 'allinfor' %}">信息中心</a></li>
+            </ol>
+        {% endblock brtree %}
 
-        <br>
         <div class="panel panel-default">
             <div class="panel-body">
                 {% for infor in allinfor.object_list %}
@@ -20,40 +26,38 @@
                 {% endfor %}
             </div>
 
-        <nav aria-label="Page navigation" class="text-center">
-                    <ul class="pagination">
-                        <li>
-                            {% if allinfor.has_previous %}
-                                <li class="disabled"><a href="?{{ allinfor.previous_page_number.querystring }}"
-                                                        aria-label="Previous"><span
-                                        aria-hidden="true">&laquo;</span></a></li>
-                            {% endif %}
-
-                        {% for page in allinfor.pages %}
-                            {% if page %}
-                                {% ifequal page allinfor.number %}
-                                    <li class="active"><a href="?{{ page.querystring }}">{{ page }} <span
-                                            class="sr-only">{{ page }}</span></a></li>
-                                {% else %}
-                                    <li><a href="?{{ page.querystring }}" class="page">{{ page }}</a></li>
-                                {% endifequal %}
-                            {% else %}
-                                <li><a href="">...</a></li>
-                            {% endif %}
-                        {% endfor %}
-                        {% if allinfor.has_next %}
-                            <li>
-                                <a href="?{{ allinfor.next_page_number.querystring }}" aria-label="Next">
-                                    <span aria-hidden="true">&raquo;</span>
-                                </a>
-                            </li>
+            <nav aria-label="Page navigation" class="text-center">
+                <ul class="pagination">
+                    <li>
+                        {% if allinfor.has_previous %}
+                            <li class="disabled"><a href="?{{ allinfor.previous_page_number.querystring }}"
+                                                    aria-label="Previous"><span
+                                    aria-hidden="true">&laquo;</span></a></li>
                         {% endif %}
+
+                    {% for page in allinfor.pages %}
+                        {% if page %}
+                            {% ifequal page allinfor.number %}
+                                <li class="active"><a href="?{{ page.querystring }}">{{ page }} <span
+                                        class="sr-only">{{ page }}</span></a></li>
+                            {% else %}
+                                <li><a href="?{{ page.querystring }}" class="page">{{ page }}</a></li>
+                            {% endifequal %}
+                        {% else %}
+                            <li><a href="">...</a></li>
+                        {% endif %}
+                    {% endfor %}
+                    {% if allinfor.has_next %}
+                        <li>
+                            <a href="?{{ allinfor.next_page_number.querystring }}" aria-label="Next">
+                                <span aria-hidden="true">&raquo;</span>
+                            </a>
                         </li>
-                    </ul>
-                </nav>
+                    {% endif %}
+                    </li>
+                </ul>
+            </nav>
         </div>
-
-
 
 
     </div> <!-- /container -->

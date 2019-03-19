@@ -33,6 +33,7 @@
                                 <option value="4">综合管理</option>
                                 <option value="5">物资管理</option>
                                 <option value="6">宣传工作</option>
+                                <option value="7">值班工作</option>
 
                             </select>
                         </div>
@@ -147,6 +148,9 @@
                             <li>
                                 <a href="?wt=6&isd={{ is_done }}&pr={{ priority }}&st={{ start_date }}&et={{ end_date }}&gn={{ member_name }}"
                                    class="{% ifequal work_type '6' %}active{% endifequal %}" role="button">宣传工作</a></li>
+                            <li>
+                                <a href="?wt=7&isd={{ is_done }}&pr={{ priority }}&st={{ start_date }}&et={{ end_date }}&gn={{ member_name }}"
+                                   class="{% ifequal work_type '7' %}active{% endifequal %}" role="button">值班工作</a></li>
                         </ul>
                     </div>
                 </div>
@@ -214,7 +218,8 @@
                                 {% ifequal todo.work_type "3" %}质量管理{% endifequal %}
                                 {% ifequal todo.work_type "4" %}综合管理{% endifequal %}
                                 {% ifequal todo.work_type "5" %}物资管理{% endifequal %}
-                                {% ifequal todo.work_type "6" %}宣传工作{% endifequal %}</h3>
+                                {% ifequal todo.work_type "6" %}宣传工作{% endifequal %}
+                                {% ifequal todo.work_type "7" %}值班工作{% endifequal %}</h3>
                         </div>
                         <div class="panel-body">
                             <p id="{{ todo.id }}-panel-body">{{ todo.contents|linebreaksbr }}</p>

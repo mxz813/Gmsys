@@ -4,9 +4,10 @@ from django.views.generic.base import View
 from .models import PlanTitle,PlanArticle,Maintain,PlanYear
 from pure_pagination import Paginator, EmptyPage, PageNotAnInteger
 import datetime
+from users.utils import LoginRequiredMixin
 # Create your views here.
 
-class PlansView(View):
+class PlansView(LoginRequiredMixin,View):
     def get(self,request):
         pltitles = PlanTitle.objects.filter(id=1)
         plarticles = PlanArticle.objects.all().filter(add_time__year=datetime.datetime.now().year).order_by("-add_time")

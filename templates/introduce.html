@@ -10,12 +10,17 @@
 
 {% block content %}
     <!-- Main jumbotron for a primary marketing message or call to action -->
-        <img src="{% static 'images/aboutus.jpg' %}" class="img-responsive" alt="Responsive image">
+    <img src="{% static 'images/aboutus.jpg' %}" class="img-responsive" alt="Responsive image">
     <br>
     <div class="container">
         <!-- Main component for a primary marketing message or call to action -->
 
-
+        {% block brtree %}
+            <ol class="breadcrumb">
+                <li><a href="/">首页</a></li>
+                <li class="active"><a href="{% url 'intro' %}">班组简介</a></li>
+            </ol>
+        {% endblock brtree %}
         <div class="panel panel-default">
             <div class="panel-body">
                 <h2 class="text-center">{{ introduce.0.title }}</h2>

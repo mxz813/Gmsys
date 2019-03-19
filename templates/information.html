@@ -8,18 +8,27 @@
 
 <!-- 写入 base.html 中定义的 content -->
 {% block content %}
-        <div class="container">
-            <!-- Main component for a primary marketing message or call to action -->
+    <div class="container">
+        <!-- Main component for a primary marketing message or call to action -->
+        <br>
+        {% block brtree %}
+            <ol class="breadcrumb">
+                <li><a href="/">首页</a></li>
+                <li><a href="{% url 'allinfor' %}">信息中心</a></li>
+                <li class="active">{{ informations.first.title }}</li>
+            </ol>
+            </ol>
+        {% endblock brtree %}
 
-            <br>
-            <div class="panel panel-default">
-                <div class="panel-body">
-                    <h2 class="text-center">{{ informations.first.title }}</h2>
-                    <p class="pull-right">作者:{{ informations.first.author }}&nbsp;&nbsp;&nbsp;&nbsp;{{  informations.first.add_time|date:'Y-d-m'}}</p>
-                    <br>
-                    {{ informations.first.contents|safe }}
-                </div>
+        <div class="panel panel-default">
+            <div class="panel-body">
+                <h2 class="text-center">{{ informations.first.title }}</h2>
+                <p class="pull-right">
+                    作者:{{ informations.first.author }}&nbsp;&nbsp;&nbsp;&nbsp;{{ informations.first.add_time|date:'Y-d-m' }}</p>
+                <br>
+                {{ informations.first.contents|safe }}
             </div>
+        </div>
 
 
     </div> <!-- /container -->

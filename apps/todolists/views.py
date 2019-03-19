@@ -8,40 +8,40 @@ from .forms import TodoForm, TodoModalForm,UsualTodoModalForm
 from pure_pagination import Paginator, EmptyPage, PageNotAnInteger
 import datetime
 from django.db.models import Q
+from users.utils import LoginRequiredMixin
 
 
 # Create your views here.
 
-class TodolistView(View):
+class TodolistView(LoginRequiredMixin,View):
     def get(self, request):
-        if request.user.is_authenticated:
-            all_todo = Todo.objects.all().order_by("is_done","-add_time")
+            all_todo = Todo.objects.all().order_by("is_done","-plan_done_time","priority")
             all_usernames = UserProfile.objects.all()
 
             # 筛选是否完成
             is_done = request.GET.get('isd',"")
             if is_done:
-                all_todo = all_todo.filter(is_done=is_done).order_by("priority")
+                all_todo = all_todo.filter(is_done=is_done).order_by("-plan_done_time","priority")
 
             # 优先级筛选
             priority = request.GET.get('pr', "")
             if priority:
-                all_todo = all_todo.filter(priority=priority)
+                all_todo = all_todo.filter(priority=priority).order_by("is_done","-plan_done_time","priority")
             # 取出工作类型
             work_type = request.GET.get('wt', "")
             if work_type:
-                all_todo = all_todo.filter(work_type=work_type)
+                all_todo = all_todo.filter(work_type=work_type).order_by("is_done","-plan_done_time","priority")
 
             # 日期筛选:start_date
             start_date = request.GET.get('st', "")
             end_date = request.GET.get('et', "")
             if start_date:
-                all_todo = all_todo.filter(plan_done_time__range=(start_date, end_date))
+                all_todo = all_todo.filter(plan_done_time__range=(start_date, end_date)).order_by("is_done","-plan_done_time","priority")
 
             # 名字筛选
             member_name = request.GET.get('gn', "")
             if member_name:
-                all_todo = all_todo.filter(member_name__icontains=member_name)
+                all_todo = all_todo.filter(member_name__icontains=member_name).order_by("is_done","-plan_done_time","priority")
 
             # 删除事项
             del_id = request.GET.get("delid")
@@ -83,8 +83,7 @@ class TodolistView(View):
                 "member_name": member_name,
 
             })
-        else:
-            return render(request, "login.html", {})
+
 
     def post(self, request):
         all_todo = Todo.objects.all()

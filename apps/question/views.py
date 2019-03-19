@@ -3,9 +3,10 @@ from django.views.generic.base import View
 from .models import CourseType,QuestionBank,MemberQuestionRecord
 from django.http import HttpResponseRedirect
 from pure_pagination import Paginator, EmptyPage, PageNotAnInteger
+from users.utils import LoginRequiredMixin
 # Create your views here.
 
-class QuestionsView(View):
+class QuestionsView(LoginRequiredMixin,View):
     def get(self,request):
         all_question = QuestionBank.objects.all().order_by('?')[:1]
 
@@ -23,7 +24,7 @@ class QuestionsView(View):
         record.save()
         return HttpResponseRedirect('/que/bank/?qn='+record.record_question_title_id)
 
-class QuestionBankView(View):
+class QuestionBankView(LoginRequiredMixin,View):
     def get(self,request):
         all_question = QuestionBank.objects.all()
 
