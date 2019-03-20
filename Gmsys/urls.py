@@ -1,3 +1,4 @@
+# -*- coding:utf-8 -*-
 """Gmsys URL Configuration
 
 The `urlpatterns` list routes URLs to views. For more information please see:
@@ -23,7 +24,7 @@ from comprehensive.views import SchedulingView
 from question.views import QuestionsView, QuestionBankView
 import xadmin
 from django.views.static import serve
-from Gmsys.settings import MEDIA_ROOT
+from Gmsys.settings import MEDIA_ROOT,STATICFILES_DIRS,STATIC_URL
 
 urlpatterns = [
     path('xadmin/', xadmin.site.urls),
@@ -40,5 +41,7 @@ urlpatterns = [
     path('que/', include('question.urls', namespace="que")),
     re_path(r'^media/(?P<path>.*)$', serve, {"document_root": MEDIA_ROOT}),
     re_path(r'^ueditor/', include('DjangoUeditor.urls')),
-
+    re_path(r'^static/(?P<path>.*)$',serve,{'document_root': STATICFILES_DIRS}),
 ]
+
+
