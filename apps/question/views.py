@@ -1,37 +1,40 @@
 from django.shortcuts import render
 from django.views.generic.base import View
-from .models import CourseType,QuestionBank,MemberQuestionRecord
+from .models import CourseType, QuestionBank, MemberQuestionRecord
 from django.http import HttpResponseRedirect
 from pure_pagination import Paginator, EmptyPage, PageNotAnInteger
 from users.utils import LoginRequiredMixin
+
+
 # Create your views here.
 
-class QuestionsView(LoginRequiredMixin,View):
-    def get(self,request):
+class QuestionsView(LoginRequiredMixin, View):
+    def get(self, request):
         all_question = QuestionBank.objects.all().order_by('?')[:1]
 
-        return render(request,'question.html',{
-        "all_question":all_question
+        return render(request, 'question.html', {
+            "all_question": all_question
         })
 
-    def post(self,request):
-
+    def post(self, request):
         record = MemberQuestionRecord()
         record.user_name_id = request.user.id
         record.record_answer = request.POST.get('answer_question')
         record.course_type_id = request.POST.get('course_type_id')
         record.record_question_title_id = request.POST.get('record_question_title_id')
         record.save()
-        return HttpResponseRedirect('/que/bank/?qn='+record.record_question_title_id)
+        return HttpResponseRedirect('/que/bank/?qn=' + record.record_question_title_id)
 
-class QuestionBankView(LoginRequiredMixin,View):
-    def get(self,request):
+
+
+class QuestionBankView(LoginRequiredMixin, View):
+    def get(self, request):
         all_question = QuestionBank.objects.all()
 
-        #题号搜索
-        question_id =request.GET.get('qn',"")
+        # 题号搜索
+        question_id = request.GET.get('qn', "")
         if question_id:
-            all_question = all_question.filter(id= question_id)
+            all_question = all_question.filter(id=question_id)
 
         # question进行分页
         try:
@@ -47,7 +50,7 @@ class QuestionBankView(LoginRequiredMixin,View):
 
         questions = p.page(page)
 
-        return render(request,'questionbank.html',{
-        "all_question":questions,
-        "question_id":question_id
+        return render(request, 'questionbank.html', {
+            "all_question": questions,
+            "question_id": question_id
         })

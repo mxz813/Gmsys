@@ -9,7 +9,7 @@ from users.utils import LoginRequiredMixin
 class IndexView(LoginRequiredMixin,View):
     def get(self,request):
         links = Links.objects.all()
-        informations = Information.objects.all()[:11]
+        informations = Information.objects.all().order_by('-add_time')[:11]
         introduce = Atsintroduce.objects.filter()
         notice = Notice.objects.all()
         banner = Banner.objects.all()

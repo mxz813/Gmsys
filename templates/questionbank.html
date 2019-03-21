@@ -1,6 +1,6 @@
 <!-- extends表明此页面继承自 base.html 文件 -->
 {% extends "base.html" %}
-
+{% load staticfiles %}
 <!-- 写入 base.html 中定义的 title -->
 {% block title %}
     题库-ATS工班管理系统
@@ -8,19 +8,20 @@
 
 <!-- 写入 base.html 中定义的 content -->
 {% block content %}
+    <img src="{% static 'images/questions.jpg' %}" class="img-responsive" alt="Responsive image">
     <div class="container">
         <!-- Main component for a primary marketing message or call to action -->
-        <div class="row">
-        <div class="col-lg-2 pull-right">
+            <br>
             <div class="input-group">
-                <input type="text" class="form-control" placeholder="题号搜索" id="question_num" name="question_num">
+                <input type="text" class="form-control" placeholder="请输入题号" id="question_num" name="question_num" onkeyup="value=value.replace(/[^\d]/g,'')" >
                 <span class="input-group-btn">
         <span class="input-group-btn "><a href="" onclick="getnum(this)" class="btn btn-default"
                                                              role="button">Go!</a></span>
       </span>
+            {{ msg }}
             </div><!-- /input-group -->
-        </div><!-- /.col-lg-6 -->
-        </div>
+
+
         {% for question in all_question.object_list %}
 
             <div class="alert alert-info" role="alert">
