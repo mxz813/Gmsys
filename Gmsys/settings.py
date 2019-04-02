@@ -96,7 +96,7 @@ DATABASES = {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': "gmsys",
         'USER': 'root',
-        'PASSWORD': "root",
+        'PASSWORD': "?Johncena58790",
         'HOST': "127.0.0.1"
     }
 }

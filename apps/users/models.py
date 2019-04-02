@@ -9,7 +9,7 @@ from django.db.models import Q
 class UserProfile(AbstractUser):
     nick_name = models.CharField(max_length=50, verbose_name="姓名", default="")
     job = models.CharField(max_length=50, verbose_name="职务",
-                           choices=(("1", "工班长"), ("2", "安全员"), ("3", "物资员"), ("4", "综合管理员"), ("5", "宣传员"), ("0", "无")),
+                           choices=(("1", "工班长"), ("2", "安全员"), ("3", "物资管理员"), ("4", "综合管理员"), ("5", "宣传员"),("6", "质量管理员"),("0", "无")),
                            default="0", null=True, blank=True)
     gender = models.CharField(max_length=6, choices=(("male", "男"), ("female", "女")), default="male")
     mobile = models.CharField(max_length=11, null=True, blank=True)

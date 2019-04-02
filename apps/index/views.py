@@ -33,7 +33,7 @@ class InformationView(LoginRequiredMixin,View):
 
 class AllinforView(LoginRequiredMixin,View):
     def get(self,request):
-        allinfor = Information.objects.all()
+        allinfor = Information.objects.all().order_by('-add_time')[:20]
 
         # 所有information进行分页
         try:
