@@ -10,7 +10,7 @@ from users.utils import LoginRequiredMixin
 class PlansView(LoginRequiredMixin,View):
     def get(self,request):
         pltitles = PlanTitle.objects.filter(id=1)
-        plarticles = PlanArticle.objects.all().filter(add_time__year=datetime.datetime.now().year).order_by("-add_time")
+        plarticles = PlanArticle.objects.all().filter(article_year__plan_year=datetime.datetime.now().year).order_by("-add_time")
         maintains = Maintain.objects.filter(id=1).values()
         planyears = PlanYear.objects.all()
 
