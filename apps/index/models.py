@@ -50,10 +50,13 @@ class Atsintroduce(models.Model):
 
 
 class Notice(models.Model):
-    title = models.CharField(max_length=100, verbose_name="公告标题", default="")
     contents = UEditorField(verbose_name='公告内容', width=600, height=300, toolbars="full",
                             imagePath="notice/ueditor/%(basename)s_%(datetime)s.%(extname)s",
                             filePath="notice/ueditor/%(basename)s_%(datetime)s.%(extname)s", default='',blank=True,null=True)
+    sld = UEditorField(verbose_name='安全文件学习', width=600, height=300, toolbars="full",
+                       imagePath="notice/ueditor/%(basename)s_%(datetime)s.%(extname)s",
+                       filePath="notice/ueditor/%(basename)s_%(datetime)s.%(extname)s", default='', blank=True,
+                       null=True)
     add_time = models.DateTimeField(default=datetime.now, verbose_name="添加时间")
 
     class Meta:
@@ -61,7 +64,7 @@ class Notice(models.Model):
         verbose_name_plural = verbose_name
 
     def __str__(self):
-        return self.title
+        return '{0}'.format('公告、安全文件学习')
 
 
 class Banner(models.Model):

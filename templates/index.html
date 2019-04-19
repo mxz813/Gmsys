@@ -87,8 +87,23 @@
             </div>
 
             <div class="col-sm-3 col-xs-12 well" style="height: 790px">
-                <p class="text-center">{{ notice.first.title }}</p>
-                <p class="lead">{{ notice.first.contents |safe }}</p>
+                <ul id="myTab" class="nav nav-tabs">
+                    <li class="active">
+                        <a href="#notic" data-toggle="tab">
+                            公告
+                        </a>
+                    </li>
+                    <li><a href="#sld" data-toggle="tab">安全学习文件</a></li>
+                </ul>
+                <div id="myTabContent" class="tab-content">
+                    <div class="tab-pane fade in active" id="notic">
+{#                        <p class="text-center">{{ notice.first.title }}</p>#}
+                        <p class="lead">{{ notice.first.contents |safe }}</p>
+                    </div>
+                    <div class="tab-pane fade" id="sld">
+                        <p class="lead">{{ notice.first.sld |safe }}</p>
+                    </div>
+                </div>
             </div>
         </div>
 

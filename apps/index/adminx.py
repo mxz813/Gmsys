@@ -25,10 +25,10 @@ class LinksAdmin(object):
     model_icon = 'fa fa-home'
 
 class NoticeAdmin(object):
-    list_display = ('title', 'contents','add_time')
-    list_filter = ['title', 'contents','add_time']
-    search_fields = ['title', 'contents']
-    style_fields = {'contents': 'ueditor'}
+    list_display = ('sld', 'contents','add_time')
+    list_filter = ['sld', 'contents','add_time']
+    search_fields = ['sld', 'contents']
+    style_fields = {'contents': 'ueditor','sld': 'ueditor'}
     model_icon = 'fa fa-home'
 
 class BannerAdmin(object):
