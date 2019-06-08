@@ -192,8 +192,8 @@
             <label class="sr-only" id="{{ todo.id }}-panel-priority">{{ todo.priority }}</label>
             <div class="panel
                             {% ifequal todo.priority 1 %}panel-danger{% endifequal %}
-                            {% ifequal todo.priority 2 %}panel-info{% endifequal %}
-                            {% ifequal todo.priority 3 %}panel-success{% endifequal %}"
+                            {% ifequal todo.priority 3 %}panel-info{% endifequal %}
+                            {% ifequal todo.priority 2 %}panel-success{% endifequal %}"
                  id="panel-priority">
                 <!-- Button trigger modal -->
 
@@ -273,10 +273,10 @@
             $(".form_datetime").datetimepicker({
                 format: "yyyy-mm-dd",
                 autoclose: true,
-                minView: 3,
+                minView: 2,
                 language: 'zh-CN',
                 weekStart: 1,
-                startView: 3,
+                startView: 2,
             });
 
         </script>

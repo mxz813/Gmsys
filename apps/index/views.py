@@ -12,7 +12,7 @@ class IndexView(LoginRequiredMixin,View):
         informations = Information.objects.all().order_by('-add_time')[:11]
         introduce = Atsintroduce.objects.filter()
         notice = Notice.objects.all()
-        banner = Banner.objects.all()
+        banner = Banner.objects.all().order_by('index')
         return render(request,'index.html',{
             'links':links,
             'informations':informations,

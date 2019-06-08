@@ -15,33 +15,33 @@ from users.utils import LoginRequiredMixin
 
 class TodolistView(LoginRequiredMixin,View):
     def get(self, request):
-            all_todo = Todo.objects.all().order_by("is_done","-plan_done_time","priority")
+            all_todo = Todo.objects.all().order_by("is_done","plan_done_time","priority")
             all_usernames = UserProfile.objects.all()
 
             # 筛选是否完成
             is_done = request.GET.get('isd',"")
             if is_done:
-                all_todo = all_todo.filter(is_done=is_done).order_by("-plan_done_time","priority")
+                all_todo = all_todo.filter(is_done=is_done).order_by("plan_done_time","priority")
 
             # 优先级筛选
             priority = request.GET.get('pr', "")
             if priority:
-                all_todo = all_todo.filter(priority=priority).order_by("is_done","-plan_done_time","priority")
+                all_todo = all_todo.filter(priority=priority).order_by("is_done","plan_done_time","priority")
             # 取出工作类型
             work_type = request.GET.get('wt', "")
             if work_type:
-                all_todo = all_todo.filter(work_type=work_type).order_by("is_done","-plan_done_time","priority")
+                all_todo = all_todo.filter(work_type=work_type).order_by("is_done","plan_done_time","priority")
 
             # 日期筛选:start_date
             start_date = request.GET.get('st', "")
             end_date = request.GET.get('et', "")
             if start_date:
-                all_todo = all_todo.filter(plan_done_time__range=(start_date, end_date)).order_by("is_done","-plan_done_time","priority")
+                all_todo = all_todo.filter(plan_done_time__range=(start_date, end_date)).order_by("is_done","plan_done_time","priority")
 
             # 名字筛选
             member_name = request.GET.get('gn', "")
             if member_name:
-                all_todo = all_todo.filter(member_name__icontains=member_name).order_by("is_done","-plan_done_time","priority")
+                all_todo = all_todo.filter(member_name__icontains=member_name).order_by("is_done","plan_done_time","priority")
 
             # 删除事项
             del_id = request.GET.get("delid")
@@ -68,7 +68,7 @@ class TodolistView(LoginRequiredMixin,View):
 
             # Provide Paginator with the request object for complete querystring generation
 
-            p = Paginator(all_todo, 20, request=request)
+            p = Paginator(all_todo, 50, request=request)
 
             todos = p.page(page)
 
@@ -131,33 +131,33 @@ class TodolistView(LoginRequiredMixin,View):
 class UsualtodoView(View):
     def get(self, request):
         if request.user.is_authenticated:
-            usual_todo = UsualTodo.objects.all().filter(user_name_id=request.user.id).order_by("-add_time")
+            usual_todo = UsualTodo.objects.all().filter(user_name_id=request.user.id).order_by("plan_done_time","priority")
             all_usernames = UserProfile.objects.all()
 
             # 筛选是否完成
             is_done = request.GET.get('isd', "")
             if is_done:
-                usual_todo = usual_todo.filter(is_done=is_done).order_by("-done_time")
+                usual_todo = usual_todo.filter(is_done=is_done).order_by("plan_done_time","priority")
 
             # 优先级筛选
             priority = request.GET.get('pr', "")
             if priority:
-                usual_todo = usual_todo.filter(priority=priority).order_by("add_time")
+                usual_todo = usual_todo.filter(priority=priority).order_by("is_done","plan_done_time","priority")
             # 取出工作类型
             work_type = request.GET.get('wt', "")
             if work_type:
-                usual_todo = usual_todo.filter(work_type=work_type)
+                usual_todo = usual_todo.filter(work_type=work_type).order_by("is_done","plan_done_time","priority")
 
             # 日期筛选:start_date
             start_date = request.GET.get('st', "")
             end_date = request.GET.get('et', "")
             if start_date:
-                usual_todo = usual_todo.filter(done_time__range=(start_date, end_date)).order_by("add_time")
+                usual_todo = usual_todo.filter(done_time__range=(start_date, end_date)).order_by("is_done","plan_done_time","priority")
 
             # 名字筛选
             member_name = request.GET.get('gn', "")
             if member_name:
-                usual_todo = usual_todo.filter(member_name=member_name).order_by("add_time")
+                usual_todo = usual_todo.filter(member_name=member_name).order_by("is_done","plan_done_time","priority")
 
             # 删除事项
             del_id = request.GET.get("delid")
@@ -184,7 +184,7 @@ class UsualtodoView(View):
 
             # Provide Paginator with the request object for complete querystring generation
 
-            p = Paginator(usual_todo, 20, request=request)
+            p = Paginator(usual_todo, 50, request=request)
 
             todos = p.page(page)
 

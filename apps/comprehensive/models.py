@@ -11,7 +11,7 @@ class Scheduling(models.Model):
                             imagePath="information/ueditor/%(basename)s_%(datetime)s.%(extname)s",
                             filePath="information/ueditor/%(basename)s_%(datetime)s.%(extname)s", default='',blank=True,null=True)
     scheduling_year =models.ForeignKey(PlanYear,on_delete=models.CASCADE,verbose_name="排班年份",default=1)
-    add_time = models.DateTimeField(default=datetime.now)
+    add_time = models.DateTimeField(auto_now_add=True)
 
     class Meta:
         verbose_name = "排班计划"

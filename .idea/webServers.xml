@@ -3,11 +3,11 @@
   <component name="WebServers">
     <option name="servers">
       <webServer id="ec5f6091-3e37-495d-b7cd-0f7000aae8ec" name="VPS" url="http://103.124.105.71">
-        <fileTransfer host="103.124.105.71" port="22" rootFolder="/data/wwwroot" accessType="SFTP">
+        <fileTransfer host="103.124.105.71" port="22206" rootFolder="/data/gmsys" accessType="SFTP">
           <advancedOptions>
             <advancedOptions dataProtectionLevel="Private" />
           </advancedOptions>
-          <option name="port" value="22" />
+          <option name="port" value="22206" />
         </fileTransfer>
       </webServer>
     </option>

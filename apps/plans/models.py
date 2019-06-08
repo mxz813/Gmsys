@@ -34,7 +34,7 @@ class PlanArticle(models.Model):
                             imagePath="planarticle/ueditor/%(basename)s_%(datetime)s.%(extname)s",
                             filePath="planarticle/ueditor/%(basename)s_%(datetime)s.%(extname)s", default='',blank=True,null=True)
     article_auth = models.ForeignKey(UserProfile,on_delete=models.CASCADE,verbose_name="发布人")
-    add_time = models.DateTimeField(auto_now=True, verbose_name="添加时间")
+    add_time = models.DateTimeField(auto_now_add=True, verbose_name="添加时间")
 
     class Meta:
         verbose_name ="计划内容"
